@@ -34,7 +34,7 @@ export default function SkillsSection() {
         right: 0,
         width: '500px',
         height: '400px',
-        background: 'radial-gradient(ellipse at top right, rgba(232,160,69,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse at top right, rgba(64,96,208,0.04) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -46,7 +46,7 @@ export default function SkillsSection() {
             fontFamily: 'var(--font-mono)',
             fontSize: '10px',
             letterSpacing: '0.25em',
-            color: 'var(--amber)',
+            color: 'var(--blue)',
             marginBottom: '12px',
           }}>
             03 / STACK
@@ -98,7 +98,7 @@ export default function SkillsSection() {
                 fontFamily: 'var(--font-mono)',
                 fontSize: '10px',
                 letterSpacing: '0.2em',
-                color: 'var(--amber)',
+                color: 'var(--blue)',
                 marginBottom: '20px',
               }}>
                 {cat.category.toUpperCase()}
@@ -118,7 +118,7 @@ export default function SkillsSection() {
                       cursor: 'default',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.borderColor = 'rgba(232,160,69,0.3)'
+                      e.currentTarget.style.borderColor = 'rgba(64,96,208,0.3)'
                       e.currentTarget.style.color = 'var(--white)'
                     }}
                     onMouseLeave={e => {

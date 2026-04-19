@@ -23,7 +23,7 @@ const ERAS = [
     year: '2020',
     era: 'Acceleration',
     title: 'Full Immersion',
-    body: 'Online school meant more time. More time meant more building. Explored full-stack, explored systems, explored what depth actually felt like.',
+    body: 'Online school meant more time. More time meant more building. Explored full-stack, explored systems, explored what depth felt like.',
     tags: ['Full-Stack', 'Systems Thinking'],
     accent: false,
   },
@@ -39,7 +39,7 @@ const ERAS = [
     year: '2024',
     era: 'Pivot',
     title: 'Redirected',
-    body: 'Two UTBK attempts. SISFOR UI. Didn\'t make it. Chose to build anyway. Settled at UPNVJ and pushed further than the destination ever required.',
+    body: "Two UTBK attempts. SISFOR UI. Didn't make it. Chose to build anyway. Settled at UPNVJ and pushed further than the destination ever required.",
     tags: ['Resilience', 'UPNVJ'],
     accent: false,
   },
@@ -47,14 +47,16 @@ const ERAS = [
     year: 'Now',
     era: 'Present',
     title: 'Building Anyway',
-    body: 'Product launches. Competition finals. A Java game engine. A Go TUI tool. The institution doesn\'t define the output.',
+    body: "Product launches. Competition finals. A Java game engine. A Go TUI tool. The institution doesn't define the output.",
     tags: ['QIOS', 'EternaFall', 'Grimoire'],
     accent: true,
   },
 ]
 
+const CARD_W = 380
+const CARD_GAP = 24
+
 export default function JourneySection() {
-  const trackRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
 
@@ -63,196 +65,187 @@ export default function JourneySection() {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
       const total = sectionRef.current.offsetHeight - window.innerHeight
-      const scrolled = -rect.top
-      const p = Math.max(0, Math.min(1, scrolled / total))
+      const p = Math.max(0, Math.min(1, -rect.top / total))
       setProgress(p)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const translateX = progress * (ERAS.length - 1) * -360
+  // Active index — which card is at center
+  const activeF = progress * (ERAS.length - 1)
+  const activeIndex = Math.round(activeF)
+
+  // Translate so active card is centered
+  const centerOffset = typeof window !== 'undefined' ? window.innerWidth / 2 - CARD_W / 2 : 600
+  const translateX = centerOffset - activeIndex * (CARD_W + CARD_GAP)
 
   return (
     <section
       id="journey"
       ref={sectionRef}
       style={{
-        height: `${ERAS.length * 120}vh`,
+        height: `${ERAS.length * 110}vh`,
         background: 'var(--black)',
         position: 'relative',
       }}
     >
       <div style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        position: 'sticky', top: 0,
+        height: '100vh', overflow: 'hidden',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}>
 
-        {/* Ambient glow */}
+        {/* Background ambient */}
         <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse at 30% 60%, rgba(232,160,69,0.04) 0%, transparent 60%)',
-          pointerEvents: 'none',
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'radial-gradient(ellipse at 50% 60%, rgba(64,96,208,0.05) 0%, transparent 60%)',
         }} />
 
         {/* Header */}
         <div style={{
-          padding: '0 64px',
-          marginBottom: '64px',
-          position: 'relative',
-          zIndex: 2,
+          padding: '0 56px', marginBottom: '56px',
+          position: 'relative', zIndex: 2,
         }}>
           <div style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '10px',
-            letterSpacing: '0.25em',
-            color: 'var(--amber)',
-            marginBottom: '12px',
+            fontFamily: 'var(--font-mono)', fontSize: '10px',
+            letterSpacing: '0.25em', color: 'var(--blue)',
+            marginBottom: '10px',
           }}>
             02 / JOURNEY
           </div>
-          <div style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-          }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
             <h2 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(48px, 7vw, 88px)',
-              lineHeight: 0.9,
-              color: 'var(--white)',
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              lineHeight: 0.9, color: 'var(--white)',
               letterSpacing: '-0.01em',
             }}>
               HOW I GOT HERE
             </h2>
             <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              color: 'var(--gray-2)',
-              letterSpacing: '0.1em',
+              fontFamily: 'var(--font-mono)', fontSize: '10px',
+              letterSpacing: '0.1em', color: 'var(--gray-2)',
             }}>
-              {Math.round(progress * (ERAS.length - 1)) + 1} / {ERAS.length}
+              {activeIndex + 1} / {ERAS.length}
             </span>
           </div>
         </div>
 
-        {/* Track */}
+        {/* Cards track */}
         <div style={{
-          position: 'relative',
-          zIndex: 2,
+          position: 'relative', zIndex: 2,
           overflow: 'visible',
-          padding: '0 64px',
         }}>
-          <div
-            ref={trackRef}
-            style={{
-              display: 'flex',
-              gap: '24px',
-              transform: `translateX(${translateX}px)`,
-              transition: 'transform 0.05s linear',
-              willChange: 'transform',
-            }}
-          >
+          <div style={{
+            display: 'flex',
+            gap: `${CARD_GAP}px`,
+            transform: `translateX(${translateX}px)`,
+            transition: 'transform 0.06s linear',
+            willChange: 'transform',
+          }}>
             {ERAS.map((era, i) => {
-              const dist = Math.abs(progress * (ERAS.length - 1) - i)
-              const isActive = dist < 0.8
-              const opacity = Math.max(0.25, 1 - dist * 0.5)
-              const scale = Math.max(0.92, 1 - dist * 0.04)
+              const dist = i - activeF
+              const absDist = Math.abs(dist)
+              const isActive = absDist < 0.5
+
+              // Perspective transform for edge cards
+              const rotateY = dist * -8
+              const scale = Math.max(0.82, 1 - absDist * 0.09)
+              const opacity = Math.max(0.2, 1 - absDist * 0.35)
+              const blur = Math.max(0, absDist - 0.5) * 2
 
               return (
                 <div
                   key={era.year}
                   style={{
                     flexShrink: 0,
-                    width: '336px',
+                    width: `${CARD_W}px`,
                     opacity,
-                    transform: `scale(${scale}) translateY(${dist * 6}px)`,
-                    transition: 'opacity 0.3s, transform 0.3s',
+                    transform: `perspective(1200px) rotateY(${rotateY}deg) scale(${scale})`,
+                    transition: 'opacity 0.3s, transform 0.06s linear',
+                    filter: blur > 0 ? `blur(${blur}px)` : 'none',
                   }}
                 >
                   <div style={{
-                    background: isActive ? 'var(--surface)' : 'var(--deep)',
-                    border: `1px solid ${era.accent && isActive ? 'rgba(232,160,69,0.2)' : 'var(--border)'}`,
+                    background: isActive
+                      ? 'rgba(255,255,255,0.04)'
+                      : 'rgba(255,255,255,0.02)',
+                    border: `1px solid ${isActive && era.accent
+                      ? 'rgba(64,96,208,0.25)'
+                      : 'rgba(255,255,255,0.06)'}`,
+                    backdropFilter: isActive ? 'blur(12px)' : 'none',
                     padding: '36px',
-                    height: '320px',
+                    height: '300px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    transition: 'all 0.3s',
+                    transition: 'all 0.4s',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}>
-                    {/* Top */}
+
+                    {/* Glow on active accent */}
+                    {isActive && era.accent && (
+                      <div style={{
+                        position: 'absolute', inset: 0, pointerEvents: 'none',
+                        background: 'radial-gradient(ellipse at top left, rgba(64,96,208,0.1) 0%, transparent 60%)',
+                      }} />
+                    )}
+
                     <div>
                       <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: '24px',
+                        display: 'flex', justifyContent: 'space-between',
+                        alignItems: 'flex-start', marginBottom: '20px',
                       }}>
                         <span style={{
-                          fontFamily: 'var(--font-display)',
-                          fontSize: '48px',
-                          color: era.accent && isActive ? 'var(--amber)' : 'var(--gray-3)',
-                          lineHeight: 1,
-                          transition: 'color 0.3s',
+                          fontFamily: 'var(--font-display)', fontSize: '44px',
+                          color: isActive && era.accent ? 'var(--blue)' : 'var(--gray-3)',
+                          lineHeight: 1, transition: 'color 0.4s',
                         }}>
                           {era.year}
                         </span>
                         <span style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '10px',
+                          fontFamily: 'var(--font-mono)', fontSize: '9px',
                           letterSpacing: '0.15em',
-                          color: era.accent && isActive ? 'var(--amber)' : 'var(--gray-2)',
+                          color: isActive && era.accent ? 'var(--blue)' : 'var(--gray-2)',
                           padding: '4px 10px',
-                          border: `1px solid ${era.accent && isActive ? 'rgba(232,160,69,0.3)' : 'var(--border)'}`,
-                          transition: 'all 0.3s',
+                          border: `1px solid ${isActive && era.accent
+                            ? 'rgba(64,96,208,0.3)'
+                            : 'var(--border)'}`,
+                          transition: 'all 0.4s',
                         }}>
                           {era.era.toUpperCase()}
                         </span>
                       </div>
 
                       <h3 style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '28px',
-                        color: 'var(--white)',
-                        letterSpacing: '-0.01em',
-                        marginBottom: '16px',
-                        lineHeight: 1.1,
+                        fontFamily: 'var(--font-display)', fontSize: '24px',
+                        color: isActive ? 'var(--white)' : 'var(--gray-1)',
+                        letterSpacing: '-0.01em', marginBottom: '12px',
+                        lineHeight: 1.1, transition: 'color 0.4s',
                       }}>
                         {era.title.toUpperCase()}
                       </h3>
 
                       <p style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '13px',
-                        fontWeight: 300,
-                        color: 'var(--gray-1)',
+                        fontFamily: 'var(--font-body)', fontSize: '13px',
+                        fontWeight: 300, color: 'var(--gray-1)',
                         lineHeight: 1.7,
                       }}>
                         {era.body}
                       </p>
                     </div>
 
-                    {/* Tags */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                       {era.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '10px',
-                            letterSpacing: '0.08em',
-                            color: 'var(--gray-2)',
-                            padding: '4px 10px',
-                            background: 'var(--surface-2)',
-                            border: '1px solid var(--border)',
-                          }}
-                        >
+                        <span key={tag} style={{
+                          fontFamily: 'var(--font-mono)', fontSize: '9px',
+                          letterSpacing: '0.08em', color: 'var(--gray-2)',
+                          padding: '3px 9px',
+                          background: 'rgba(255,255,255,0.03)',
+                          border: '1px solid var(--border)',
+                        }}>
                           {tag}
                         </span>
                       ))}
@@ -264,20 +257,31 @@ export default function JourneySection() {
           </div>
         </div>
 
+        {/* Progress dots */}
+        <div style={{
+          position: 'absolute', bottom: '40px', left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex', gap: '8px', alignItems: 'center',
+        }}>
+          {ERAS.map((_, i) => (
+            <div key={i} style={{
+              width: i === activeIndex ? '20px' : '4px',
+              height: '4px',
+              borderRadius: '2px',
+              background: i === activeIndex ? 'var(--blue)' : 'var(--gray-2)',
+              transition: 'all 0.3s',
+            }} />
+          ))}
+        </div>
+
         {/* Progress bar */}
         <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '1px',
-          background: 'var(--border)',
+          position: 'absolute', bottom: 0, left: 0, right: 0,
+          height: '1px', background: 'var(--border)',
         }}>
           <div style={{
-            height: '100%',
-            width: `${progress * 100}%`,
-            background: 'var(--amber)',
-            transition: 'width 0.05s linear',
+            height: '100%', width: `${progress * 100}%`,
+            background: 'var(--blue)', transition: 'width 0.06s linear',
           }} />
         </div>
       </div>

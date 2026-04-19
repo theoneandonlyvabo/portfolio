@@ -67,7 +67,7 @@ export default function ChatbotSection() {
         right: 0,
         width: '600px',
         height: '500px',
-        background: 'radial-gradient(ellipse at bottom right, rgba(232,160,69,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse at bottom right, rgba(64,96,208,0.04) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -89,7 +89,7 @@ export default function ChatbotSection() {
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',
               letterSpacing: '0.25em',
-              color: 'var(--amber)',
+              color: 'var(--blue)',
               marginBottom: '12px',
             }}>
               05 / CONTACT
@@ -199,7 +199,7 @@ export default function ChatbotSection() {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  background: 'var(--amber)',
+                  background: 'var(--blue)',
                   animation: 'shimmer 2.5s ease-in-out infinite',
                 }} />
                 <span style={{
@@ -257,7 +257,7 @@ export default function ChatbotSection() {
                           transition: 'all 0.2s',
                         }}
                         onMouseEnter={e => {
-                          e.currentTarget.style.borderColor = 'rgba(232,160,69,0.3)'
+                          e.currentTarget.style.borderColor = 'rgba(64,96,208,0.3)'
                           e.currentTarget.style.color = 'var(--white)'
                         }}
                         onMouseLeave={e => {
@@ -286,7 +286,7 @@ export default function ChatbotSection() {
                     fontFamily: 'var(--font-mono)',
                     fontSize: '9px',
                     letterSpacing: '0.15em',
-                    color: msg.role === 'user' ? 'var(--amber)' : 'var(--gray-2)',
+                    color: msg.role === 'user' ? 'var(--blue)' : 'var(--gray-2)',
                   }}>
                     {msg.role === 'user' ? 'YOU' : 'AIREL'}
                   </span>
@@ -294,7 +294,7 @@ export default function ChatbotSection() {
                     maxWidth: '85%',
                     padding: '10px 14px',
                     background: msg.role === 'user' ? 'var(--surface-2)' : 'transparent',
-                    border: `1px solid ${msg.role === 'user' ? 'var(--border)' : 'rgba(232,160,69,0.1)'}`,
+                    border: `1px solid ${msg.role === 'user' ? 'var(--border)' : 'rgba(64,96,208,0.1)'}`,
                     fontFamily: 'var(--font-body)',
                     fontSize: '12px',
                     fontWeight: 300,
@@ -313,7 +313,7 @@ export default function ChatbotSection() {
                       width: '4px',
                       height: '4px',
                       borderRadius: '50%',
-                      background: 'var(--amber)',
+                      background: 'var(--blue)',
                       animation: `shimmer 1.2s ${i * 0.2}s ease-in-out infinite`,
                     }} />
                   ))}
@@ -333,7 +333,7 @@ export default function ChatbotSection() {
               <span style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '12px',
-                color: 'var(--amber)',
+                color: 'var(--blue)',
                 flexShrink: 0,
               }}>
                 &gt;
@@ -352,7 +352,7 @@ export default function ChatbotSection() {
                   fontFamily: 'var(--font-mono)',
                   fontSize: '12px',
                   color: 'var(--white)',
-                  caretColor: 'var(--amber)',
+                  caretColor: 'var(--blue)',
                 }}
               />
               <button
@@ -362,7 +362,7 @@ export default function ChatbotSection() {
                   fontFamily: 'var(--font-mono)',
                   fontSize: '10px',
                   letterSpacing: '0.12em',
-                  color: 'var(--amber)',
+                  color: 'var(--blue)',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',

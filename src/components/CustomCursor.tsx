@@ -78,7 +78,7 @@ export default function CustomCursor() {
           width: '8px',
           height: '8px',
           borderRadius: '50%',
-          background: isHovering ? 'var(--amber)' : 'var(--white)',
+          background: isHovering ? 'var(--blue)' : 'var(--white)',
           zIndex: 99999,
           pointerEvents: 'none',
           mixBlendMode: 'difference',
@@ -110,7 +110,7 @@ export default function CustomCursor() {
           position: 'absolute',
           inset: 0,
           borderRadius: '50%',
-          border: `1px solid ${isHovering ? 'var(--amber)' : 'rgba(255,255,255,0.3)'}`,
+          border: `1px solid ${isHovering ? 'var(--blue)' : 'rgba(255,255,255,0.3)'}`,
           transition: 'border-color 0.2s',
           transform: isHovering ? 'scale(1.4)' : 'scale(1)',
         }} />
@@ -166,7 +166,7 @@ export default function CustomCursor() {
           width: '2px',
           height: '2px',
           borderRadius: '50%',
-          background: isHovering ? 'var(--amber)' : 'rgba(255,255,255,0.5)',
+          background: isHovering ? 'var(--blue)' : 'rgba(255,255,255,0.5)',
           transition: 'background 0.2s',
         }} />
       </div>
