@@ -4,73 +4,96 @@ import { useEffect, useState, useRef } from 'react'
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const heroRef = useRef<HTMLDivElement>(null)
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 })
+  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     setMounted(true)
-    const handleMouse = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY })
+    const onMove = (e: MouseEvent) => {
+      setMousePos({
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight,
+      })
     }
-    window.addEventListener('mousemove', handleMouse)
-    return () => window.removeEventListener('mousemove', handleMouse)
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
   }, [])
 
   if (!mounted) return null
 
-  const parallaxX = (mousePos.x / window.innerWidth - 0.5) * 20
-  const parallaxY = (mousePos.y / window.innerHeight - 0.5) * 20
+  const glowX = mousePos.x * 100
+  const glowY = mousePos.y * 100
 
   return (
     <section
-      ref={heroRef}
-      className="relative min-h-screen w-full overflow-hidden"
-      style={{ background: 'var(--black)' }}
+      ref={ref}
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        width: '100%',
+        overflow: 'hidden',
+        background: 'var(--black)',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
-      {/* Grid Background */}
+      {/* Ambient glow — follows mouse subtly */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          background: `radial-gradient(600px circle at ${glowX}% ${glowY}%, rgba(232,160,69,0.05) 0%, transparent 70%)`,
+          transition: 'background 0.3s ease',
         }}
       />
 
-      {/* Scanline overlay */}
+      {/* Static ambient bottom */}
       <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-[0.02]"
         style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,217,255,0.3) 2px, rgba(0,217,255,0.3) 4px)`,
-        }}
-      />
-
-      {/* Ambient glow top */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-10 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, var(--cyan) 0%, transparent 70%)',
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '80%',
+          height: '40%',
+          background: 'radial-gradient(ellipse at center bottom, rgba(232,160,69,0.04) 0%, transparent 70%)',
+          pointerEvents: 'none',
         }}
       />
 
       {/* Nav */}
-      <nav className="relative z-40 flex items-center justify-between px-10 py-7">
-        <span
-          className="text-xs tracking-[0.3em] uppercase animate-fade-in"
-          style={{ color: 'var(--gray)', fontFamily: 'var(--font-mono)' }}
-        >
+      <nav style={{
+        position: 'relative',
+        zIndex: 40,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '28px 48px',
+      }}>
+        <span style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '11px',
+          letterSpacing: '0.15em',
+          color: 'var(--gray-2)',
+        }}>
           airel.adrivano
         </span>
-        <div className="flex gap-10">
-          {['journey', 'stack', 'work', 'contact'].map((item, i) => (
+        <div style={{ display: 'flex', gap: '40px' }}>
+          {['journey', 'stack', 'work', 'contact'].map((item) => (
             <a
               key={item}
               href={`#${item}`}
-              className="text-xs tracking-widest uppercase transition-all duration-300 hover:text-cyan-400 animate-fade-in"
               style={{
-                color: 'var(--gray)',
                 fontFamily: 'var(--font-mono)',
-                animationDelay: `${i * 0.1}s`,
+                fontSize: '11px',
+                letterSpacing: '0.1em',
+                color: 'var(--gray-2)',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--gray-2)')}
             >
               {item}
             </a>
@@ -78,242 +101,212 @@ export default function Hero() {
         </div>
       </nav>
 
-      {/* Main content */}
-      <div className="relative z-20 flex flex-col justify-center min-h-[calc(100vh-80px)] px-10 lg:px-20">
-        <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* Main */}
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0 48px',
+        position: 'relative',
+        zIndex: 10,
+        gap: '0px',
+      }}>
 
-          {/* Left: Text block */}
-          <div className="flex flex-col gap-6">
-
-            {/* System tag */}
-            <div
-              className="flex items-center gap-3 animate-fade-up"
-              style={{ fontFamily: 'var(--font-mono)', animationDelay: '0.1s', opacity: 0 }}
-            >
-              <div className="w-2 h-2 rounded-full animate-pulse-glow" style={{ background: 'var(--cyan)' }} />
-              <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--cyan)' }}>
-                system.online — developer / builder
-              </span>
-            </div>
-
-            {/* Name */}
-            <div
-              className="animate-fade-up"
-              style={{ animationDelay: '0.2s', opacity: 0 }}
-            >
-              <h1
-                className="leading-none tracking-tight"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(72px, 10vw, 140px)',
-                  color: 'var(--white)',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                AIREL
-              </h1>
-              <h1
-                className="leading-none glow-cyan"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(72px, 10vw, 140px)',
-                  color: 'var(--cyan)',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                ADRIVANO
-              </h1>
-            </div>
-
-            {/* Descriptor */}
-            <p
-              className="text-lg leading-relaxed max-w-md animate-fade-up"
-              style={{
-                color: 'var(--gray)',
-                fontFamily: 'var(--font-body)',
-                animationDelay: '0.35s',
-                opacity: 0,
-              }}
-            >
-              Full-stack engineer. System architect. I build things that matter —
-              from game engines to enterprise platforms.
-              <span style={{ color: 'var(--white)' }}> Depth over breadth.</span>
-            </p>
-
-            {/* CTAs */}
-            <div
-              className="flex items-center gap-5 animate-fade-up"
-              style={{ animationDelay: '0.5s', opacity: 0 }}
-            >
-              <a
-                href="#work"
-                className="group relative px-7 py-3 text-sm tracking-widest uppercase transition-all duration-300"
-                style={{
-                  background: 'var(--cyan)',
-                  color: 'var(--black)',
-                  fontFamily: 'var(--font-mono)',
-                  fontWeight: 600,
-                  clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
-                }}
-              >
-                view work
-              </a>
-              <a
-                href="#contact"
-                className="px-7 py-3 text-sm tracking-widest uppercase transition-all duration-300 hover:text-cyan-400"
-                style={{
-                  color: 'var(--gray)',
-                  fontFamily: 'var(--font-mono)',
-                  border: '1px solid var(--gray-dim)',
-                  clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
-                }}
-              >
-                get in touch
-              </a>
-            </div>
-
-            {/* Metrics */}
-            <div
-              className="flex gap-10 pt-4 animate-fade-up"
-              style={{
-                borderTop: '1px solid var(--gray-dim)',
-                animationDelay: '0.65s',
-                opacity: 0,
-              }}
-            >
-              {[
-                { value: '4+', label: 'active projects' },
-                { value: '3x', label: 'competition finalist' },
-                { value: '5', label: 'languages' },
-              ].map((stat) => (
-                <div key={stat.label} className="flex flex-col gap-1">
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '28px',
-                      color: 'var(--cyan)',
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span
-                    className="text-xs tracking-widest uppercase"
-                    style={{ color: 'var(--gray)', fontFamily: 'var(--font-mono)' }}
-                  >
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Visual block */}
-          <div
-            className="relative flex items-center justify-center animate-fade-in"
-            style={{ animationDelay: '0.4s', opacity: 0 }}
-          >
-            {/* Portrait container */}
-            <div
-              className="relative w-[340px] h-[420px]"
-              style={{
-                transform: `translate(${parallaxX * 0.3}px, ${parallaxY * 0.3}px)`,
-                transition: 'transform 0.1s ease-out',
-              }}
-            >
-              {/* Glitch frame */}
-              <div
-                className="absolute inset-0 border border-cyan-400"
-                style={{
-                  transform: 'translate(8px, -8px)',
-                  borderColor: 'var(--magenta)',
-                  opacity: 0.4,
-                }}
-              />
-              <div
-                className="absolute inset-0 border border-cyan-400"
-                style={{
-                  transform: 'translate(-8px, 8px)',
-                  borderColor: 'var(--cyan)',
-                  opacity: 0.4,
-                }}
-              />
-
-              {/* Image placeholder — replace with your actual photo */}
-              <div
-                className="absolute inset-0 flex items-end"
-                style={{
-                  background: 'var(--surface)',
-                  border: '1px solid var(--gray-dim)',
-                }}
-              >
-                {/* Replace this div with: <Image src="/images/vano.jpg" alt="Airel Adrivano" fill style={{ objectFit: 'cover' }} /> */}
-                <div className="w-full h-full flex items-center justify-center" style={{ color: 'var(--gray-dim)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-                  [ portrait ]
-                </div>
-
-                {/* Overlay gradient at bottom */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(to top, var(--black), transparent)',
-                  }}
-                />
-
-                {/* Name tag at bottom */}
-                <div
-                  className="absolute bottom-4 left-4 right-4 flex items-center justify-between"
-                  style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gray)' }}
-                >
-                  <span className="tracking-widest uppercase">jakarta, id</span>
-                  <span style={{ color: 'var(--cyan)' }}>upnvj // 2024</span>
-                </div>
-              </div>
-
-              {/* Corner accents */}
-              {[
-                'top-0 left-0',
-                'top-0 right-0 rotate-90',
-                'bottom-0 right-0 rotate-180',
-                'bottom-0 left-0 -rotate-90',
-              ].map((pos, i) => (
-                <div key={i} className={`absolute ${pos} w-5 h-5 pointer-events-none`}>
-                  <div className="absolute top-0 left-0 w-full h-[1px]" style={{ background: 'var(--cyan)' }} />
-                  <div className="absolute top-0 left-0 h-full w-[1px]" style={{ background: 'var(--cyan)' }} />
-                </div>
-              ))}
-            </div>
-
-            {/* Floating tag */}
-            <div
-              className="absolute -top-4 -right-4 px-3 py-1.5 text-xs tracking-widest uppercase animate-flicker"
-              style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--cyan)',
-                color: 'var(--cyan)',
-                fontFamily: 'var(--font-mono)',
-              }}
-            >
-              available
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
+        {/* Label */}
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in"
-          style={{ animationDelay: '1s', opacity: 0 }}
+          className="fade-in"
+          style={{
+            animationDelay: '0.1s',
+            opacity: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '32px',
+          }}
         >
-          <span
-            className="text-xs tracking-widest uppercase"
-            style={{ color: 'var(--gray)', fontFamily: 'var(--font-mono)' }}
-          >
-            scroll
+          <div style={{
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            background: 'var(--amber)',
+            animation: 'shimmer 2.5s ease-in-out infinite',
+          }} />
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            letterSpacing: '0.2em',
+            color: 'var(--gray-1)',
+          }}>
+            developer — builder — jakarta
           </span>
-          <div
-            className="w-[1px] h-12 animate-pulse"
-            style={{ background: 'linear-gradient(to bottom, var(--cyan), transparent)' }}
-          />
         </div>
+
+        {/* Name */}
+        <h1
+          className="fade-up"
+          style={{
+            animationDelay: '0.2s',
+            opacity: 0,
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(80px, 14vw, 200px)',
+            lineHeight: 0.9,
+            letterSpacing: '-0.01em',
+            textAlign: 'center',
+            color: 'var(--white)',
+          }}
+        >
+          AIREL
+          <br />
+          <span style={{ color: 'var(--amber)' }}>ADRIVANO</span>
+        </h1>
+
+        {/* Descriptor */}
+        <p
+          className="fade-in"
+          style={{
+            animationDelay: '0.5s',
+            opacity: 0,
+            marginTop: '40px',
+            fontFamily: 'var(--font-body)',
+            fontSize: '15px',
+            fontWeight: 300,
+            color: 'var(--gray-1)',
+            textAlign: 'center',
+            maxWidth: '420px',
+            lineHeight: 1.7,
+          }}
+        >
+          Full-stack engineer. I build products end-to-end —
+          from game engines to enterprise platforms.
+        </p>
+
+        {/* CTA row */}
+        <div
+          className="fade-in"
+          style={{
+            animationDelay: '0.65s',
+            opacity: 0,
+            marginTop: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+          }}
+        >
+          <a
+            href="#work"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              letterSpacing: '0.12em',
+              padding: '12px 28px',
+              background: 'var(--amber)',
+              color: 'var(--black)',
+              textDecoration: 'none',
+              fontWeight: 500,
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            VIEW WORK
+          </a>
+          <a
+            href="#contact"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              letterSpacing: '0.12em',
+              padding: '12px 28px',
+              border: '1px solid var(--border-hover)',
+              color: 'var(--gray-1)',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'var(--amber)'
+              e.currentTarget.style.color = 'var(--white)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'var(--border-hover)'
+              e.currentTarget.style.color = 'var(--gray-1)'
+            }}
+          >
+            GET IN TOUCH
+          </a>
+        </div>
+
+        {/* Stats */}
+        <div
+          className="fade-in"
+          style={{
+            animationDelay: '0.8s',
+            opacity: 0,
+            marginTop: '80px',
+            display: 'flex',
+            gap: '64px',
+            paddingTop: '32px',
+            borderTop: '1px solid var(--border)',
+          }}
+        >
+          {[
+            { value: '4+', label: 'Active projects' },
+            { value: '3×', label: 'Competition finalist' },
+            { value: '5', label: 'Languages' },
+          ].map((s) => (
+            <div key={s.label} style={{ textAlign: 'center' }}>
+              <div style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '40px',
+                color: 'var(--white)',
+                lineHeight: 1,
+              }}>
+                {s.value}
+              </div>
+              <div style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.1em',
+                color: 'var(--gray-2)',
+                marginTop: '6px',
+              }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div
+        className="fade-in"
+        style={{
+          animationDelay: '1.1s',
+          opacity: 0,
+          position: 'absolute',
+          bottom: '32px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        <span style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '10px',
+          letterSpacing: '0.2em',
+          color: 'var(--gray-2)',
+        }}>
+          SCROLL
+        </span>
+        <div style={{
+          width: '1px',
+          height: '40px',
+          background: 'linear-gradient(to bottom, var(--gray-2), transparent)',
+        }} />
       </div>
     </section>
   )

@@ -2,287 +2,283 @@
 
 import { useRef, useEffect, useState } from 'react'
 
-const JOURNEY_ITEMS = [
+const ERAS = [
   {
-    era: 'origin',
-    year: '2009–2013',
-    label: 'SD — first contact',
-    description: 'Grew up in games. Started pulling apart how they worked instead of just playing them.',
-    references: [
-      { title: 'Minecraft', type: 'game', accent: 'cyan' },
-      { title: 'curiosity', type: 'trait', accent: 'gray' },
-    ],
+    year: '2009',
+    era: 'Origin',
+    title: 'First Contact',
+    body: 'Grew up inside games. Started pulling apart how they worked instead of just playing them. Curiosity over consumption.',
+    tags: ['Game Architecture', 'System Curiosity'],
+    accent: false,
   },
   {
-    era: 'discovery',
-    year: '2014–2016',
-    label: 'SMP — first line of code',
-    description: 'Got my first laptop. Wrote my first HTML. Realized I could build the things I was consuming.',
-    references: [
-      { title: 'HTML/CSS', type: 'tech', accent: 'cyan' },
-      { title: 'Berserk', type: 'manga', accent: 'magenta' },
-    ],
+    year: '2014',
+    era: 'Discovery',
+    title: 'First Line of Code',
+    body: 'Got a laptop. Wrote HTML for the first time. Realized I could build the things I was consuming. That realization never left.',
+    tags: ['HTML/CSS', 'Web Fundamentals'],
+    accent: false,
   },
   {
-    era: 'acceleration',
     year: '2020',
-    label: 'COVID — full immersion',
-    description: 'Online school meant more time. More time meant more building. Explored fullstack, explored systems.',
-    references: [
-      { title: 'JoJo\'s Bizarre Adventure', type: 'anime', accent: 'magenta' },
-      { title: 'Witcher 3', type: 'game', accent: 'cyan' },
-    ],
+    era: 'Acceleration',
+    title: 'Full Immersion',
+    body: 'Online school meant more time. More time meant more building. Explored full-stack, explored systems, explored what depth actually felt like.',
+    tags: ['Full-Stack', 'Systems Thinking'],
+    accent: false,
   },
   {
-    era: 'clarity',
-    year: '2021–2023',
-    label: 'SMA — passion locked in',
-    description: 'First real projects. First competitions. Understood that this wasn\'t a hobby — it was the direction.',
-    references: [
-      { title: 'Elden Ring', type: 'game', accent: 'cyan' },
-      { title: 'Loki', type: 'series', accent: 'magenta' },
-    ],
+    year: '2021',
+    era: 'Clarity',
+    title: 'Passion Locked In',
+    body: 'First real projects. First competitions. Stopped treating this as a hobby. It was the direction. Everything else was secondary.',
+    tags: ['First Projects', 'Competitions'],
+    accent: true,
   },
   {
-    era: 'pivot',
     year: '2024',
-    label: 'UTBK × 2 — redirected',
-    description: 'Two attempts at SISFOR UI. Didn\'t make it. Chose to build instead of wait. Settled at UPNVJ and pushed further than the destination ever required.',
-    references: [
-      { title: 'resolve', type: 'trait', accent: 'lime' },
-      { title: 'QIOS', type: 'project', accent: 'cyan' },
-    ],
+    era: 'Pivot',
+    title: 'Redirected',
+    body: 'Two UTBK attempts. SISFOR UI. Didn\'t make it. Chose to build anyway. Settled at UPNVJ and pushed further than the destination ever required.',
+    tags: ['Resilience', 'UPNVJ'],
+    accent: false,
   },
   {
-    era: 'now',
-    year: '2024–now',
-    label: 'UPNVJ — building anyway',
-    description: 'Product launches. Competition finals. Game engines. A TUI tool. The institution doesn\'t define the output.',
-    references: [
-      { title: 'EternaFall', type: 'project', accent: 'cyan' },
-      { title: 'Grimoire', type: 'project', accent: 'lime' },
-    ],
+    year: 'Now',
+    era: 'Present',
+    title: 'Building Anyway',
+    body: 'Product launches. Competition finals. A Java game engine. A Go TUI tool. The institution doesn\'t define the output.',
+    tags: ['QIOS', 'EternaFall', 'Grimoire'],
+    accent: true,
   },
 ]
 
-const ACCENT_COLORS: Record<string, string> = {
-  cyan: 'var(--cyan)',
-  magenta: 'var(--magenta)',
-  lime: 'var(--lime)',
-  gray: 'var(--gray)',
-}
-
 export default function JourneySection() {
+  const trackRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
-      const sectionHeight = sectionRef.current.offsetHeight - window.innerHeight
+      const total = sectionRef.current.offsetHeight - window.innerHeight
       const scrolled = -rect.top
-      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight))
-      setScrollProgress(progress)
-      const index = Math.min(
-        JOURNEY_ITEMS.length - 1,
-        Math.floor(progress * JOURNEY_ITEMS.length)
-      )
-      setActiveIndex(index)
+      const p = Math.max(0, Math.min(1, scrolled / total))
+      setProgress(p)
     }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const active = JOURNEY_ITEMS[activeIndex]
+  const translateX = progress * (ERAS.length - 1) * -360
 
   return (
     <section
       id="journey"
       ref={sectionRef}
-      style={{ height: `${JOURNEY_ITEMS.length * 100}vh`, background: 'var(--black)' }}
+      style={{
+        height: `${ERAS.length * 120}vh`,
+        background: 'var(--black)',
+        position: 'relative',
+      }}
     >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}>
 
-        {/* Background ambient */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-all duration-1000"
-          style={{
-            background: `radial-gradient(ellipse at 20% 50%, ${ACCENT_COLORS[active.references[0]?.accent] ?? 'var(--cyan)'}08 0%, transparent 60%)`,
-          }}
-        />
+        {/* Ambient glow */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse at 30% 60%, rgba(232,160,69,0.04) 0%, transparent 60%)',
+          pointerEvents: 'none',
+        }} />
 
-        {/* Grid bg */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }}
-        />
+        {/* Header */}
+        <div style={{
+          padding: '0 64px',
+          marginBottom: '64px',
+          position: 'relative',
+          zIndex: 2,
+        }}>
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '10px',
+            letterSpacing: '0.25em',
+            color: 'var(--amber)',
+            marginBottom: '12px',
+          }}>
+            02 / JOURNEY
+          </div>
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+          }}>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(48px, 7vw, 88px)',
+              lineHeight: 0.9,
+              color: 'var(--white)',
+              letterSpacing: '-0.01em',
+            }}>
+              HOW I GOT HERE
+            </h2>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: 'var(--gray-2)',
+              letterSpacing: '0.1em',
+            }}>
+              {Math.round(progress * (ERAS.length - 1)) + 1} / {ERAS.length}
+            </span>
+          </div>
+        </div>
 
-        {/* Section header */}
-        <div
-          className="absolute top-10 left-10"
-          style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gray)', letterSpacing: '0.3em' }}
-        >
-          <span style={{ color: 'var(--cyan)' }}>02</span> / JOURNEY
+        {/* Track */}
+        <div style={{
+          position: 'relative',
+          zIndex: 2,
+          overflow: 'visible',
+          padding: '0 64px',
+        }}>
+          <div
+            ref={trackRef}
+            style={{
+              display: 'flex',
+              gap: '24px',
+              transform: `translateX(${translateX}px)`,
+              transition: 'transform 0.05s linear',
+              willChange: 'transform',
+            }}
+          >
+            {ERAS.map((era, i) => {
+              const dist = Math.abs(progress * (ERAS.length - 1) - i)
+              const isActive = dist < 0.8
+              const opacity = Math.max(0.25, 1 - dist * 0.5)
+              const scale = Math.max(0.92, 1 - dist * 0.04)
+
+              return (
+                <div
+                  key={era.year}
+                  style={{
+                    flexShrink: 0,
+                    width: '336px',
+                    opacity,
+                    transform: `scale(${scale}) translateY(${dist * 6}px)`,
+                    transition: 'opacity 0.3s, transform 0.3s',
+                  }}
+                >
+                  <div style={{
+                    background: isActive ? 'var(--surface)' : 'var(--deep)',
+                    border: `1px solid ${era.accent && isActive ? 'rgba(232,160,69,0.2)' : 'var(--border)'}`,
+                    padding: '36px',
+                    height: '320px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.3s',
+                  }}>
+                    {/* Top */}
+                    <div>
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        marginBottom: '24px',
+                      }}>
+                        <span style={{
+                          fontFamily: 'var(--font-display)',
+                          fontSize: '48px',
+                          color: era.accent && isActive ? 'var(--amber)' : 'var(--gray-3)',
+                          lineHeight: 1,
+                          transition: 'color 0.3s',
+                        }}>
+                          {era.year}
+                        </span>
+                        <span style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '10px',
+                          letterSpacing: '0.15em',
+                          color: era.accent && isActive ? 'var(--amber)' : 'var(--gray-2)',
+                          padding: '4px 10px',
+                          border: `1px solid ${era.accent && isActive ? 'rgba(232,160,69,0.3)' : 'var(--border)'}`,
+                          transition: 'all 0.3s',
+                        }}>
+                          {era.era.toUpperCase()}
+                        </span>
+                      </div>
+
+                      <h3 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '28px',
+                        color: 'var(--white)',
+                        letterSpacing: '-0.01em',
+                        marginBottom: '16px',
+                        lineHeight: 1.1,
+                      }}>
+                        {era.title.toUpperCase()}
+                      </h3>
+
+                      <p style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '13px',
+                        fontWeight: 300,
+                        color: 'var(--gray-1)',
+                        lineHeight: 1.7,
+                      }}>
+                        {era.body}
+                      </p>
+                    </div>
+
+                    {/* Tags */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      {era.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '10px',
+                            letterSpacing: '0.08em',
+                            color: 'var(--gray-2)',
+                            padding: '4px 10px',
+                            background: 'var(--surface-2)',
+                            border: '1px solid var(--border)',
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         {/* Progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: 'var(--gray-dim)' }}>
-          <div
-            className="h-full transition-all duration-300"
-            style={{ width: `${scrollProgress * 100}%`, background: 'var(--cyan)' }}
-          />
-        </div>
-
-        {/* Main layout */}
-        <div className="w-full max-w-7xl mx-auto px-10 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left: Timeline nav */}
-          <div className="flex flex-col gap-1">
-            {JOURNEY_ITEMS.map((item, i) => (
-              <div
-                key={item.era}
-                className="flex items-center gap-4 py-3 transition-all duration-500 cursor-default"
-                style={{
-                  opacity: i === activeIndex ? 1 : i < activeIndex ? 0.3 : 0.15,
-                  transform: i === activeIndex ? 'translateX(0px)' : 'translateX(-4px)',
-                }}
-              >
-                {/* Dot */}
-                <div
-                  className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-300"
-                  style={{
-                    background: i === activeIndex ? 'var(--cyan)' : 'var(--gray-dim)',
-                    boxShadow: i === activeIndex ? '0 0 8px var(--cyan)' : 'none',
-                  }}
-                />
-                {/* Year + label */}
-                <div className="flex items-baseline gap-3">
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      color: i === activeIndex ? 'var(--cyan)' : 'var(--gray)',
-                      letterSpacing: '0.1em',
-                    }}
-                  >
-                    {item.year}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: i === activeIndex ? '15px' : '13px',
-                      color: i === activeIndex ? 'var(--white)' : 'var(--gray)',
-                      fontWeight: i === activeIndex ? 500 : 400,
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              </div>
-            ))}
-
-            {/* Vertical line */}
-            <div
-              className="absolute left-10 lg:left-20"
-              style={{
-                width: '1px',
-                background: 'var(--gray-dim)',
-                top: '15%',
-                height: '70%',
-              }}
-            />
-          </div>
-
-          {/* Right: Active content */}
-          <div className="flex flex-col gap-8" key={activeIndex}>
-
-            {/* Era badge */}
-            <div
-              className="w-fit px-3 py-1 text-xs tracking-widest uppercase"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                border: `1px solid ${ACCENT_COLORS[active.references[0]?.accent] ?? 'var(--cyan)'}`,
-                color: ACCENT_COLORS[active.references[0]?.accent] ?? 'var(--cyan)',
-              }}
-            >
-              {active.era}
-            </div>
-
-            {/* Year large */}
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(48px, 7vw, 96px)',
-                color: 'var(--white)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-              }}
-            >
-              {active.year}
-            </div>
-
-            {/* Description */}
-            <p
-              className="text-base leading-relaxed max-w-md"
-              style={{ color: 'var(--gray)', fontFamily: 'var(--font-body)' }}
-            >
-              {active.description}
-            </p>
-
-            {/* References */}
-            <div className="flex flex-wrap gap-3">
-              {active.references.map((ref) => (
-                <div
-                  key={ref.title}
-                  className="flex items-center gap-2 px-3 py-1.5"
-                  style={{
-                    background: 'var(--surface)',
-                    border: `1px solid ${ACCENT_COLORS[ref.accent]}22`,
-                  }}
-                >
-                  <div
-                    className="w-1 h-1 rounded-full"
-                    style={{ background: ACCENT_COLORS[ref.accent] }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      color: ACCENT_COLORS[ref.accent],
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    {ref.title}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '9px',
-                      color: 'var(--gray)',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {ref.type}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll hint */}
-        <div
-          className="absolute bottom-8 right-10 text-xs tracking-widest uppercase"
-          style={{ color: 'var(--gray)', fontFamily: 'var(--font-mono)' }}
-        >
-          {activeIndex + 1} / {JOURNEY_ITEMS.length}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'var(--border)',
+        }}>
+          <div style={{
+            height: '100%',
+            width: `${progress * 100}%`,
+            background: 'var(--amber)',
+            transition: 'width 0.05s linear',
+          }} />
         </div>
       </div>
     </section>

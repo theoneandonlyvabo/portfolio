@@ -4,98 +4,126 @@ import { useRef, useEffect, useState } from 'react'
 import { SKILLS } from '@/lib/constants'
 
 export default function SkillsSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.2 }
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVisible(true) },
+      { threshold: 0.15 }
     )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
+    if (ref.current) obs.observe(ref.current)
+    return () => obs.disconnect()
   }, [])
 
   return (
     <section
       id="stack"
-      ref={sectionRef}
-      className="relative min-h-screen w-full flex items-center py-32"
-      style={{ background: 'var(--deep)' }}
+      ref={ref}
+      style={{
+        background: 'var(--deep)',
+        padding: '120px 64px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
-      {/* Grid bg */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(var(--magenta) 1px, transparent 1px), linear-gradient(90deg, var(--magenta) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {/* Ambient */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        width: '500px',
+        height: '400px',
+        background: 'radial-gradient(ellipse at top right, rgba(232,160,69,0.04) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
 
-      <div className="w-full max-w-7xl mx-auto px-10 lg:px-20">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
 
         {/* Header */}
-        <div className="flex items-end justify-between mb-16">
-          <div className="flex flex-col gap-3">
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                color: 'var(--cyan)',
-                letterSpacing: '0.3em',
-              }}
-            >
-              03 / STACK
-            </span>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(48px, 7vw, 80px)',
-                color: 'var(--white)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-              }}
-            >
-              WHAT I BUILD WITH
-            </h2>
+        <div style={{ marginBottom: '80px' }}>
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '10px',
+            letterSpacing: '0.25em',
+            color: 'var(--amber)',
+            marginBottom: '12px',
+          }}>
+            03 / STACK
           </div>
-          <p
-            className="hidden lg:block max-w-xs text-sm leading-relaxed"
-            style={{ color: 'var(--gray)', fontFamily: 'var(--font-body)' }}
-          >
-            Primary stack is TypeScript/Next.js. Most comfortable in Go and Java.
-          </p>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '32px' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(48px, 6vw, 80px)',
+              lineHeight: 0.9,
+              color: 'var(--white)',
+              letterSpacing: '-0.01em',
+            }}>
+              WHAT I<br />BUILD WITH
+            </h2>
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '13px',
+              fontWeight: 300,
+              color: 'var(--gray-1)',
+              maxWidth: '280px',
+              lineHeight: 1.7,
+              flexShrink: 0,
+            }}>
+              Primary stack is TypeScript/Next.js.
+              Most comfortable in Go and Java.
+            </p>
+          </div>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ background: 'var(--gray-dim)' }}>
-          {SKILLS.map((category, i) => (
+        {/* Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '1px',
+          background: 'var(--border)',
+        }}>
+          {SKILLS.map((cat, i) => (
             <div
-              key={category.category}
-              className="flex flex-col gap-5 p-8 transition-all duration-500"
+              key={cat.category}
               style={{
                 background: 'var(--deep)',
+                padding: '36px 32px',
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(20px)',
-                transitionDelay: `${i * 0.1}s`,
+                transform: visible ? 'translateY(0)' : 'translateY(16px)',
+                transition: `opacity 0.6s ${i * 0.08}s, transform 0.6s ${i * 0.08}s`,
               }}
             >
-              <span
-                className="text-xs tracking-widest uppercase"
-                style={{ color: 'var(--cyan)', fontFamily: 'var(--font-mono)' }}
-              >
-                {category.category}
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {category.items.map((item) => (
+              <div style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.2em',
+                color: 'var(--amber)',
+                marginBottom: '20px',
+              }}>
+                {cat.category.toUpperCase()}
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {cat.items.map((item) => (
                   <span
                     key={item}
-                    className="px-3 py-1 text-xs tracking-wide transition-all duration-200 hover:border-cyan-400 hover:text-white cursor-default"
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      color: 'var(--gray)',
-                      border: '1px solid var(--gray-dim)',
+                      fontSize: '12px',
+                      color: 'var(--gray-1)',
+                      padding: '6px 12px',
+                      border: '1px solid var(--border)',
                       background: 'var(--surface)',
+                      transition: 'all 0.2s',
+                      cursor: 'default',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = 'rgba(232,160,69,0.3)'
+                      e.currentTarget.style.color = 'var(--white)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = 'var(--border)'
+                      e.currentTarget.style.color = 'var(--gray-1)'
                     }}
                   >
                     {item}
@@ -104,15 +132,6 @@ export default function SkillsSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom note */}
-        <div
-          className="mt-8 flex items-center gap-3"
-          style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--gray)' }}
-        >
-          <div className="w-2 h-2 rounded-full" style={{ background: 'var(--lime)' }} />
-          <span>actively learning — this list grows</span>
         </div>
       </div>
     </section>
