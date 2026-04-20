@@ -111,7 +111,6 @@ export default function ProjectsSection() {
                 onMouseLeave={() => setActive(null)}
                 style={{
                   flex: isActive ? '3 0 0' : isOther ? '0.4 0 0' : '1 0 0',
-                  transition: 'flex 0.5s cubic-bezier(0.16,1,0.3,1)',
                   overflow: 'hidden',
                   borderRadius: '12px',
                   background: 'rgba(255,255,255,0.02)',
