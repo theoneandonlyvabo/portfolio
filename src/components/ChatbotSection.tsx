@@ -55,78 +55,66 @@ export default function ChatbotSection() {
       ref={ref}
       style={{
         background: 'var(--deep)',
-        padding: '120px 64px',
+        padding: '120px 56px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Ambient */}
+      {/* Ambient — violet hint for this section */}
       <div style={{
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        width: '600px',
-        height: '500px',
-        background: 'radial-gradient(ellipse at bottom right, rgba(64,96,208,0.04) 0%, transparent 70%)',
+        position: 'absolute', bottom: 0, right: 0,
+        width: '600px', height: '500px',
+        background: 'radial-gradient(ellipse at bottom right, rgba(100,70,200,0.07) 0%, transparent 65%)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'absolute', top: 0, left: '30%',
+        width: '500px', height: '300px',
+        background: 'radial-gradient(ellipse at top, rgba(64,96,208,0.05) 0%, transparent 65%)',
         pointerEvents: 'none',
       }} />
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '80px',
+          gap: '72px',
           alignItems: 'start',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 0.8s, transform 0.8s',
         }}>
 
           {/* Left */}
-          <div style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.7s, transform 0.7s',
-          }}>
-            <div style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '10px',
-              letterSpacing: '0.25em',
-              color: 'var(--blue)',
-              marginBottom: '12px',
-            }}>
-              05 / CONTACT
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div>
+              <div style={{
+                fontFamily: 'var(--font-mono)', fontSize: '10px',
+                letterSpacing: '0.25em', color: 'var(--blue)', marginBottom: '10px',
+              }}>
+                05 / CONTACT
+              </div>
+              <h2 style={{
+                fontFamily: 'var(--font-sans)', fontWeight: 600,
+                fontSize: 'clamp(36px, 5vw, 60px)',
+                lineHeight: 1.0, color: 'var(--white)',
+                letterSpacing: '-0.03em', marginBottom: '20px',
+              }}>
+                Let's talk
+              </h2>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontWeight: 300,
+                fontSize: '13px', color: 'var(--gray-1)',
+                lineHeight: 1.8, maxWidth: '340px',
+              }}>
+                You're not talking to a support bot.
+                This is a fragment of how I think.
+                Ask anything.
+              </p>
             </div>
 
-            <h2 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(48px, 6vw, 80px)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.01em',
-              color: 'var(--white)',
-              marginBottom: '32px',
-            }}>
-              LET'S<br />TALK
-            </h2>
-
-            <p style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '13px',
-              fontWeight: 300,
-              color: 'var(--gray-1)',
-              lineHeight: 1.8,
-              maxWidth: '360px',
-              marginBottom: '48px',
-            }}>
-              You're not talking to a support bot.
-              This is a fragment of how I think.
-              Ask anything — about my work, decisions, or direction.
-            </p>
-
-            {/* Contact links */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0',
-              borderTop: '1px solid var(--border)',
-            }}>
+            {/* Links */}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 { label: 'GitHub', value: 'theoneandonlyvabo', url: 'https://github.com/theoneandonlyvabo' },
                 { label: 'LinkedIn', value: 'aireladrivano', url: 'https://linkedin.com/in/aireladrivano' },
@@ -138,33 +126,26 @@ export default function ChatbotSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: 'flex', alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '16px 0',
+                    padding: '14px 0',
                     borderBottom: '1px solid var(--border)',
                     textDecoration: 'none',
-                    transition: 'all 0.2s',
+                    transition: 'padding-left 0.2s',
                   }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.paddingLeft = '8px'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.paddingLeft = '0'
-                  }}
+                  onMouseEnter={e => e.currentTarget.style.paddingLeft = '6px'}
+                  onMouseLeave={e => e.currentTarget.style.paddingLeft = '0px'}
                 >
                   <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '10px',
-                    letterSpacing: '0.15em',
-                    color: 'var(--gray-2)',
+                    fontFamily: 'var(--font-mono)', fontSize: '10px',
+                    letterSpacing: '0.12em', color: 'var(--gray-2)',
+                    textTransform: 'uppercase',
                   }}>
-                    {link.label.toUpperCase()}
+                    {link.label}
                   </span>
                   <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
-                    color: 'var(--gray-1)',
+                    fontFamily: 'var(--font-sans)', fontWeight: 300,
+                    fontSize: '12px', color: 'var(--gray-1)',
                   }}>
                     {link.value}
                   </span>
@@ -174,84 +155,70 @@ export default function ChatbotSection() {
           </div>
 
           {/* Right: Chat */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.7s 0.15s, transform 0.7s 0.15s',
-              border: '1px solid var(--border)',
-              background: 'var(--surface)',
-              display: 'flex',
-              flexDirection: 'column',
-              height: '520px',
-            }}
-          >
+          <div style={{
+            border: '1px solid var(--border)',
+            borderRadius: '12px',
+            background: 'rgba(255,255,255,0.02)',
+            backdropFilter: 'blur(20px)',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '500px',
+            overflow: 'hidden',
+          }}>
             {/* Header */}
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: 'flex', alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '16px 20px',
+              padding: '14px 20px',
               borderBottom: '1px solid var(--border)',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <div style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
+                  width: '6px', height: '6px', borderRadius: '50%',
                   background: 'var(--blue)',
-                  animation: 'shimmer 2.5s ease-in-out infinite',
+                  animation: 'pulse 2.5s ease-in-out infinite',
                 }} />
                 <span style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '10px',
-                  letterSpacing: '0.15em',
-                  color: 'var(--gray-1)',
+                  fontFamily: 'var(--font-sans)', fontWeight: 400,
+                  fontSize: '12px', color: 'var(--gray-1)',
                 }}>
-                  AIREL.FRAGMENT
+                  Airel — fragment
                 </span>
               </div>
               <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '9px',
-                letterSpacing: '0.1em',
-                color: 'var(--gray-2)',
+                fontFamily: 'var(--font-mono)', fontSize: '9px',
+                letterSpacing: '0.1em', color: 'var(--gray-2)',
               }}>
-                GEMINI PRO
+                gemini pro
               </span>
             </div>
 
             {/* Messages */}
             <div style={{
-              flex: 1,
-              overflowY: 'auto',
+              flex: 1, overflowY: 'auto',
               padding: '20px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
+              display: 'flex', flexDirection: 'column', gap: '14px',
             }}>
               {messages.length === 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <p style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '11px',
-                    color: 'var(--gray-2)',
-                    lineHeight: 1.6,
+                    fontFamily: 'var(--font-sans)', fontWeight: 300,
+                    fontSize: '12px', color: 'var(--gray-2)', lineHeight: 1.6,
                   }}>
                     You're in. Ask anything.
                   </p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '4px' }}>
                     {PROMPTS.map((p) => (
                       <button
                         key={p}
                         onClick={() => send(p)}
                         style={{
                           textAlign: 'left',
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '11px',
-                          color: 'var(--gray-2)',
+                          fontFamily: 'var(--font-sans)', fontWeight: 300,
+                          fontSize: '12px', color: 'var(--gray-2)',
                           padding: '8px 12px',
                           border: '1px solid var(--border)',
+                          borderRadius: '8px',
                           background: 'transparent',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
@@ -259,10 +226,12 @@ export default function ChatbotSection() {
                         onMouseEnter={e => {
                           e.currentTarget.style.borderColor = 'rgba(64,96,208,0.3)'
                           e.currentTarget.style.color = 'var(--white)'
+                          e.currentTarget.style.background = 'rgba(64,96,208,0.04)'
                         }}
                         onMouseLeave={e => {
                           e.currentTarget.style.borderColor = 'var(--border)'
                           e.currentTarget.style.color = 'var(--gray-2)'
+                          e.currentTarget.style.background = 'transparent'
                         }}
                       >
                         {p}
@@ -273,32 +242,31 @@ export default function ChatbotSection() {
               )}
 
               {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                    gap: '4px',
-                  }}
-                >
+                <div key={i} style={{
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                  gap: '4px',
+                }}>
                   <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '9px',
-                    letterSpacing: '0.15em',
+                    fontFamily: 'var(--font-mono)', fontSize: '9px',
+                    letterSpacing: '0.12em',
                     color: msg.role === 'user' ? 'var(--blue)' : 'var(--gray-2)',
+                    textTransform: 'uppercase',
                   }}>
-                    {msg.role === 'user' ? 'YOU' : 'AIREL'}
+                    {msg.role === 'user' ? 'You' : 'Airel'}
                   </span>
                   <div style={{
                     maxWidth: '85%',
                     padding: '10px 14px',
-                    background: msg.role === 'user' ? 'var(--surface-2)' : 'transparent',
-                    border: `1px solid ${msg.role === 'user' ? 'var(--border)' : 'rgba(64,96,208,0.1)'}`,
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '12px',
-                    fontWeight: 300,
-                    color: 'var(--white)',
+                    borderRadius: '8px',
+                    background: msg.role === 'user'
+                      ? 'rgba(64,96,208,0.08)'
+                      : 'rgba(255,255,255,0.03)',
+                    border: `1px solid ${msg.role === 'user'
+                      ? 'rgba(64,96,208,0.15)'
+                      : 'var(--border)'}`,
+                    fontFamily: 'var(--font-sans)', fontWeight: 300,
+                    fontSize: '12px', color: 'var(--white)',
                     lineHeight: 1.7,
                   }}>
                     {msg.content}
@@ -307,14 +275,12 @@ export default function ChatbotSection() {
               ))}
 
               {loading && (
-                <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'center', paddingLeft: '2px' }}>
                   {[0, 1, 2].map((i) => (
                     <div key={i} style={{
-                      width: '4px',
-                      height: '4px',
-                      borderRadius: '50%',
+                      width: '4px', height: '4px', borderRadius: '50%',
                       background: 'var(--blue)',
-                      animation: `shimmer 1.2s ${i * 0.2}s ease-in-out infinite`,
+                      animation: `pulse 1.2s ${i * 0.2}s ease-in-out infinite`,
                     }} />
                   ))}
                 </div>
@@ -324,17 +290,13 @@ export default function ChatbotSection() {
 
             {/* Input */}
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
+              display: 'flex', alignItems: 'center', gap: '10px',
               padding: '12px 16px',
               borderTop: '1px solid var(--border)',
             }}>
               <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '12px',
-                color: 'var(--blue)',
-                flexShrink: 0,
+                fontFamily: 'var(--font-mono)', fontSize: '12px',
+                color: 'var(--blue)', flexShrink: 0,
               }}>
                 &gt;
               </span>
@@ -346,12 +308,9 @@ export default function ChatbotSection() {
                 placeholder="type here..."
                 style={{
                   flex: 1,
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '12px',
-                  color: 'var(--white)',
+                  background: 'transparent', border: 'none', outline: 'none',
+                  fontFamily: 'var(--font-sans)', fontWeight: 300,
+                  fontSize: '13px', color: 'var(--white)',
                   caretColor: 'var(--blue)',
                 }}
               />
@@ -359,19 +318,15 @@ export default function ChatbotSection() {
                 onClick={() => send()}
                 disabled={loading || !input.trim()}
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '10px',
-                  letterSpacing: '0.12em',
-                  color: 'var(--blue)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
+                  fontFamily: 'var(--font-mono)', fontSize: '10px',
+                  letterSpacing: '0.1em', color: 'var(--blue)',
+                  background: 'none', border: 'none', cursor: 'pointer',
                   opacity: loading || !input.trim() ? 0.3 : 1,
-                  transition: 'opacity 0.2s',
-                  flexShrink: 0,
+                  transition: 'opacity 0.2s', flexShrink: 0,
+                  padding: '0',
                 }}
               >
-                SEND
+                Send
               </button>
             </div>
           </div>
