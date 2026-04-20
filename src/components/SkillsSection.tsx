@@ -1,415 +1,570 @@
 'use client'
 
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 
-const SKILLS_DATA = [
+const skillsData = [
   {
-    id: 'typescript',
-    label: 'TypeScript',
-    category: 'language',
-    size: 80,
-    color: 'rgba(64,96,208,0.7)',
-    description: 'Primary language for all web projects. Used across full-stack with Next.js and Node.',
-    related: ['React', 'Next.js', 'Node.js'],
+    id: 'typescript', label: 'TypeScript', category: 'language', color: 'rgba(64,96,208,0.7)',
+    description: 'Bahasa utama untuk semua proyek web. Digunakan di seluruh full-stack dengan Next.js dan Node.',
+    related: ['React', 'Next.js', 'Node.js'], offsetY: -30, imagePath: '/images/typescript.png'
   },
   {
-    id: 'java',
-    label: 'Java',
-    category: 'language',
-    size: 76,
-    color: 'rgba(80,60,160,0.7)',
-    description: 'Strongest systems language. Used to build EternaFall — a full game engine from scratch.',
-    related: ['AWT/Canvas', 'Game Systems'],
+    id: 'claude', label: 'Claude', category: 'AI Tools', color: 'rgba(217, 119, 87, 0.7)',
+    description: 'Expertise dalam utilisasi Anthropic LLM dan Claude Code secara maksimal untuk percepatan development workflow.',
+    related: ['Anthropic', 'LLM', 'Claude Code'], offsetY: 15, imagePath: '/images/claude.png'
   },
   {
-    id: 'go',
-    label: 'Go',
-    category: 'language',
-    size: 70,
-    color: 'rgba(40,140,140,0.65)',
-    description: 'Backend and tooling. Built Grimoire — a TUI documentation tool — entirely in Go.',
-    related: ['Bubbletea', 'Cobra', 'CLI'],
+    id: 'java', label: 'Java', category: 'language', color: 'rgba(80,60,160,0.7)',
+    description: 'Strongest systems language. Digunakan untuk membangun EternaFall — full game engine dari nol.',
+    related: ['AWT/Canvas', 'Game Systems'], offsetY: 40, imagePath: '/images/java.png'
   },
   {
-    id: 'react',
-    label: 'React',
-    category: 'frontend',
-    size: 72,
-    color: 'rgba(64,96,208,0.55)',
-    description: 'Component-driven UI. Used in QIOS and most web projects alongside Next.js.',
-    related: ['Next.js', 'TypeScript'],
+    id: 'go', label: 'Go', category: 'language', color: 'rgba(40,140,140,0.65)',
+    description: 'Backend dan tooling. Membangun Grimoire — TUI documentation tool — sepenuhnya dengan Go.',
+    related: ['Bubbletea', 'Cobra', 'CLI'], offsetY: -10, imagePath: '/images/golang.png'
   },
   {
-    id: 'nextjs',
-    label: 'Next.js',
-    category: 'frontend',
-    size: 74,
-    color: 'rgba(64,96,208,0.6)',
-    description: 'Full-stack React framework. App Router, API routes, SSR — used in production projects.',
-    related: ['React', 'TypeScript', 'Vercel'],
+    id: 'react', label: 'React', category: 'frontend', color: 'rgba(64,96,208,0.55)',
+    description: 'Component-driven UI. Digunakan untuk membangun QIOS smart kiosk dan aplikasi web modern.',
+    related: ['Next.js', 'TypeScript'], offsetY: 50, imagePath: '/images/react.png'
   },
   {
-    id: 'laravel',
-    label: 'Laravel',
-    category: 'backend',
-    size: 62,
-    color: 'rgba(100,60,60,0.6)',
-    description: 'PHP backend framework. Used for Moneytor — an AI-powered personal finance app.',
-    related: ['PHP', 'MySQL'],
+    id: 'nextjs', label: 'Next.js', category: 'frontend', color: 'rgba(64,96,208,0.6)',
+    description: 'Full-stack React framework. App Router, API routes, SSR — digunakan di proyek produksi.',
+    related: ['React', 'TypeScript', 'Vercel'], offsetY: -40, imagePath: '/images/nextjs.png'
   },
   {
-    id: 'nodejs',
-    label: 'Node.js',
-    category: 'backend',
-    size: 65,
-    color: 'rgba(50,100,70,0.6)',
+    id: 'laravel', label: 'Laravel', category: 'backend', color: 'rgba(100,60,60,0.6)',
+    description: 'PHP backend framework. Digunakan untuk Moneytor — AI-powered personal finance app.',
+    related: ['PHP', 'MySQL'], offsetY: 20, imagePath: '/images/laravel.png'
+  },
+  {
+    id: 'nodejs', label: 'Node.js', category: 'backend', color: 'rgba(50,100,70,0.6)',
     description: 'Server-side JavaScript. API design, REST endpoints, middleware architecture.',
-    related: ['Express', 'TypeScript'],
+    related: ['Express', 'TypeScript'], offsetY: -20, imagePath: '/images/nodejs.png'
   },
   {
-    id: 'postgres',
-    label: 'PostgreSQL',
-    category: 'data',
-    size: 58,
-    color: 'rgba(60,80,120,0.55)',
-    description: 'Primary relational database. Schema design, indexing, query optimization.',
-    related: ['MySQL', 'Prisma'],
+    id: 'postgres', label: 'PostgreSQL', category: 'data', color: 'rgba(60,80,120,0.55)',
+    description: 'Primary relational database. Schema design, indexing, dan optimasi query.',
+    related: ['MySQL', 'Prisma'], offsetY: 60, imagePath: '/images/postgresql.png'
   },
   {
-    id: 'figma',
-    label: 'Figma',
-    category: 'design',
-    size: 54,
-    color: 'rgba(80,60,100,0.5)',
-    description: 'UI/UX design and prototyping. Used for wireframing before dev.',
-    related: ['UI/UX', 'Design Systems'],
+    id: 'figma', label: 'Figma', category: 'design', color: 'rgba(80,60,100,0.5)',
+    description: 'UI/UX design dan prototyping. Digunakan untuk wireframing sebelum tahap development.',
+    related: ['UI/UX', 'Design Systems'], offsetY: -50, imagePath: '/images/figma.png'
   },
   {
-    id: 'php',
-    label: 'PHP',
-    category: 'language',
-    size: 55,
-    color: 'rgba(90,70,130,0.5)',
-    description: 'Server-side scripting. Used alongside Laravel for backend web development.',
-    related: ['Laravel', 'MySQL'],
+    id: 'php', label: 'PHP', category: 'language', color: 'rgba(90,70,130,0.5)',
+    description: 'Server-side scripting. Digunakan bersama Laravel untuk backend web development.',
+    related: ['Laravel', 'MySQL'], offsetY: 30, imagePath: '/images/php.png'
   },
   {
-    id: 'git',
-    label: 'Git',
-    category: 'tools',
-    size: 56,
-    color: 'rgba(50,50,70,0.55)',
-    description: 'Version control. Daily use — branching, PRs, CI/CD workflows.',
-    related: ['GitHub', 'DevOps'],
+    id: 'javascript', label: 'JavaScript', category: 'language', color: 'rgba(240,219,79,0.55)',
+    description: 'Core web programming language. Digunakan untuk logika frontend dinamis dan scripting.',
+    related: ['TypeScript', 'React'], offsetY: -15, imagePath: '/images/javascript.png'
   },
   {
-    id: 'python',
-    label: 'Python',
-    category: 'language',
-    size: 52,
-    color: 'rgba(50,90,80,0.5)',
-    description: 'Data analytics and scripting. Used for research, automation, and ML exploration.',
-    related: ['Data Analytics', 'Looker Studio'],
+    id: 'python', label: 'Python', category: 'language', color: 'rgba(50,90,80,0.5)',
+    description: 'Data analytics dan scripting. Digunakan untuk riset, otomasi, dan eksplorasi Machine Learning.',
+    related: ['Data Analytics', 'Looker Studio'], offsetY: 45, imagePath: '/images/python.png'
   },
 ]
 
-type BubbleState = {
-  x: number
-  y: number
-  vx: number
-  vy: number
-}
-
 export default function SkillsSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const rafRef = useRef<number>(0)
-  const [visible, setVisible] = useState(false)
-  const [hovered, setHovered] = useState<string | null>(null)
-  const [dims, setDims] = useState({ w: 800, h: 500 })
-  const bubblesRef = useRef<Record<string, BubbleState>>({})
-
-  // Init bubble positions
-  useEffect(() => {
-    const w = containerRef.current?.offsetWidth ?? 800
-    const h = containerRef.current?.offsetHeight ?? 500
-    setDims({ w, h })
-    const cx = w / 2
-    const cy = h / 2
-    const states: Record<string, BubbleState> = {}
-    SKILLS_DATA.forEach((s, i) => {
-      const angle = (i / SKILLS_DATA.length) * Math.PI * 2
-      const r = 80 + Math.random() * 100
-      states[s.id] = {
-        x: cx + Math.cos(angle) * r,
-        y: cy + Math.sin(angle) * r,
-        vx: 0, vy: 0,
-      }
-    })
-    bubblesRef.current = states
-  }, [visible])
-
-  // Physics: attract toward center, repel from each other
-  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>({})
-
-  const tick = useCallback(() => {
-    const cx = dims.w / 2
-    const cy = dims.h / 2
-    const b = bubblesRef.current
-    const newPos: Record<string, { x: number; y: number }> = {}
-
-    SKILLS_DATA.forEach((s) => {
-      const bs = b[s.id]
-      if (!bs) return
-
-      let fx = 0, fy = 0
-
-      // Attract to center
-      const dx = cx - bs.x
-      const dy = cy - bs.y
-      fx += dx * 0.012
-      fy += dy * 0.012
-
-      // Repel from other bubbles
-      SKILLS_DATA.forEach((other) => {
-        if (other.id === s.id) return
-        const ob = b[other.id]
-        if (!ob) return
-        const ox = bs.x - ob.x
-        const oy = bs.y - ob.y
-        const dist = Math.sqrt(ox * ox + oy * oy) || 1
-        const minDist = (s.size + other.size) * 0.65
-        if (dist < minDist) {
-          const force = (minDist - dist) / minDist * 0.4
-          fx += (ox / dist) * force
-          fy += (oy / dist) * force
-        }
-      })
-
-      // Boundary
-      const margin = s.size / 2 + 8
-      if (bs.x < margin) fx += (margin - bs.x) * 0.2
-      if (bs.x > dims.w - margin) fx -= (bs.x - (dims.w - margin)) * 0.2
-      if (bs.y < margin) fy += (margin - bs.y) * 0.2
-      if (bs.y > dims.h - margin) fy -= (bs.y - (dims.h - margin)) * 0.2
-
-      bs.vx = (bs.vx + fx) * 0.82
-      bs.vy = (bs.vy + fy) * 0.82
-      bs.x += bs.vx
-      bs.y += bs.vy
-
-      newPos[s.id] = { x: bs.x, y: bs.y }
-    })
-
-    setPositions({ ...newPos })
-    rafRef.current = requestAnimationFrame(tick)
-  }, [dims])
+  const [isVisible, setIsVisible] = useState(false)
+  const [hoveredSkillId, setHoveredSkillId] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!visible) return
-    rafRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [visible, tick])
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true) },
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
       { threshold: 0.15 }
     )
-    if (sectionRef.current) obs.observe(sectionRef.current)
-    return () => obs.disconnect()
+    if (sectionRef.current) visibilityObserver.observe(sectionRef.current)
+    return () => visibilityObserver.disconnect()
   }, [])
-
-  const hoveredSkill = SKILLS_DATA.find((s) => s.id === hovered)
 
   return (
     <section
       id="stack"
       ref={sectionRef}
       style={{
-        background: 'var(--deep)',
+        background: '#000000',
         padding: '120px 56px',
         position: 'relative',
         overflow: 'hidden',
+        minHeight: '100vh',
       }}
     >
-      {/* Subtle violet ambient — dimension accent */}
+      <style>
+        {`
+          @keyframes floatAsymmetric {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+          }
+        `}
+      </style>
+
+      {/* Subtle deep blue ambient background */}
       <div style={{
-        position: 'absolute', top: 0, right: 0,
-        width: '500px', height: '400px',
-        background: 'radial-gradient(ellipse at top right, rgba(100,70,200,0.06) 0%, transparent 65%)',
+        position: 'absolute', top: '10%', right: '15%',
+        width: '600px', height: '500px',
+        background: 'radial-gradient(circle, rgba(64,96,208,0.08) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '56px' }}>
+        <div style={{ marginBottom: '100px', textAlign: 'center' }}>
           <div style={{
             fontFamily: 'var(--font-mono)', fontSize: '10px',
-            letterSpacing: '0.25em', color: 'var(--blue)', marginBottom: '10px',
+            letterSpacing: '0.25em', color: 'rgba(64,96,208,0.9)', marginBottom: '16px',
           }}>
             03 / STACK
           </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '32px' }}>
-            <h2 style={{
-              fontFamily: 'var(--font-sans)', fontWeight: 600,
-              fontSize: 'clamp(36px, 5vw, 60px)',
-              lineHeight: 1.0, color: 'var(--white)',
-              letterSpacing: '-0.03em',
-            }}>
-              What I build with
-            </h2>
-            <p style={{
-              fontFamily: 'var(--font-sans)', fontWeight: 300,
-              fontSize: '13px', color: 'var(--gray-1)',
-              maxWidth: '260px', lineHeight: 1.7, flexShrink: 0,
-            }}>
-              Hover any bubble to learn more about how I use it.
-            </p>
-          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-sans)', fontWeight: 600,
+            fontSize: 'clamp(36px, 5vw, 60px)',
+            lineHeight: 1.0, color: '#FFFFFF',
+            letterSpacing: '-0.03em',
+          }}>
+            What I build with
+          </h2>
         </div>
 
-        {/* Bubble container */}
-        <div
-          ref={containerRef}
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '520px',
-            opacity: visible ? 1 : 0,
-            transition: 'opacity 0.8s',
-          }}
-        >
-          {SKILLS_DATA.map((skill) => {
-            const pos = positions[skill.id]
-            if (!pos) return null
-            const isHov = hovered === skill.id
-            const isOther = hovered !== null && !isHov
+        {/* Hive Container - Asymmetric Layout */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '24px',
+          maxWidth: '950px',
+          margin: '0 auto',
+          paddingBottom: '100px',
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}>
+          {skillsData.map((skillItem, index) => {
+            const isSkillHovered = hoveredSkillId === skillItem.id
+            const isAnotherSkillHovered = hoveredSkillId !== null && !isSkillHovered
+            const animationDelayOffset = (index % 5) * 0.4
 
             return (
               <div
-                key={skill.id}
-                onMouseEnter={() => setHovered(skill.id)}
-                onMouseLeave={() => setHovered(null)}
+                key={skillItem.id}
+                onMouseEnter={() => setHoveredSkillId(skillItem.id)}
+                onMouseLeave={() => setHoveredSkillId(null)}
                 style={{
-                  position: 'absolute',
-                  left: pos.x,
-                  top: pos.y,
-                  transform: `translate(-50%, -50%) scale(${isHov ? 1.35 : isOther ? 0.88 : 1})`,
-                  transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.3s',
-                  zIndex: isHov ? 10 : 1,
-                  opacity: isOther ? 0.45 : 1,
+                  position: 'relative',
+                  width: '120px',
+                  height: '120px',
+                  transform: `translateY(${skillItem.offsetY}px)`,
+                  animation: `floatAsymmetric ${4 + (index % 3)}s ease-in-out infinite`,
+                  animationDelay: `${animationDelayOffset}s`,
+                  zIndex: isSkillHovered ? 50 : 1,
+                  opacity: isAnotherSkillHovered ? 0.3 : 1,
+                  transition: 'opacity 0.4s ease',
                 }}
               >
+                {/* Inner Container: Liquid Glass Effect */}
                 <div style={{
-                  width: `${skill.size}px`,
-                  height: `${skill.size}px`,
-                  borderRadius: '50%',
-                  background: isHov
-                    ? skill.color.replace('0.7)', '0.85)').replace('0.6)', '0.8)').replace('0.65)', '0.8)').replace('0.5)', '0.7)').replace('0.55)', '0.75)')
-                    : skill.color,
-                  border: `1px solid ${isHov ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)'}`,
-                  backdropFilter: 'blur(8px)',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: isSkillHovered ? '280px' : '120px',
+                  height: isSkillHovered ? 'auto' : '120px',
+                  minHeight: isSkillHovered ? '160px' : '120px',
+                  padding: isSkillHovered ? '24px' : '0px',
+                  borderRadius: isSkillHovered ? '24px' : '50%',
+                  background: isSkillHovered 
+                    ? 'rgba(12, 16, 25, 0.9)' 
+                    : 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(16px) saturate(150%)',
+                  border: isSkillHovered 
+                    ? `1px solid rgba(64,96,208,0.5)`
+                    : '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: isSkillHovered 
+                    ? `0 20px 40px rgba(0,0,0,0.8), 0 0 20px ${skillItem.color}` 
+                    : `inset 0 0 25px ${skillItem.color.replace('0.7', '0.2').replace('0.6', '0.2').replace('0.5', '0.2')}, 0 4px 12px rgba(0,0,0,0.1)`,
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'default',
-                  transition: 'background 0.3s, border-color 0.3s',
-                  boxShadow: isHov ? `0 0 32px ${skill.color}` : 'none',
+                  flexDirection: isSkillHovered ? 'column' : 'row',
+                  alignItems: isSkillHovered ? 'flex-start' : 'center',
+                  justifyContent: isSkillHovered ? 'flex-start' : 'center',
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}>
-                  <span style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontWeight: 500,
-                    fontSize: `${Math.max(9, skill.size * 0.16)}px`,
-                    color: isHov ? 'var(--white)' : 'rgba(255,255,255,0.75)',
-                    letterSpacing: '-0.01em',
-                    textAlign: 'center',
-                    userSelect: 'none',
-                    transition: 'color 0.2s',
+                  
+                  {/* PNG Image State */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    flexShrink: 0,
+                    transition: 'all 0.4s ease',
+                    marginBottom: isSkillHovered ? '16px' : '0px',
+                    transform: isSkillHovered ? 'scale(0.8)' : 'scale(1)',
+                    transformOrigin: 'top left',
+                    opacity: isSkillHovered ? 1 : 0.85,
                   }}>
-                    {skill.label}
-                  </span>
+                    <Image 
+                      src={skillItem.imagePath} 
+                      alt={`${skillItem.label} icon`} 
+                      width={40} 
+                      height={40} 
+                      style={{ objectFit: 'contain' }}
+                      priority={index < 5}
+                    />
+                  </div>
+
+                  {/* Expanded Content */}
+                  <div style={{
+                    opacity: isSkillHovered ? 1 : 0,
+                    height: isSkillHovered ? 'auto' : '0px',
+                    visibility: isSkillHovered ? 'visible' : 'hidden',
+                    transition: 'opacity 0.3s ease 0.1s',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <h3 style={{
+                        fontFamily: 'var(--font-sans)', fontWeight: 600,
+                        fontSize: '16px', color: '#FFFFFF',
+                        letterSpacing: '-0.02em', margin: 0
+                      }}>
+                        {skillItem.label}
+                      </h3>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: '8px',
+                        letterSpacing: '0.12em', color: 'rgba(64,96,208,0.9)',
+                        padding: '2px 6px',
+                        border: '1px solid rgba(64,96,208,0.3)',
+                        borderRadius: '100px',
+                        textTransform: 'uppercase',
+                      }}>
+                        {skillItem.category}
+                      </span>
+                    </div>
+
+                    <p style={{
+                      fontFamily: 'var(--font-sans)', fontWeight: 300,
+                      fontSize: '12px', color: 'rgba(255,255,255,0.7)', 
+                      lineHeight: 1.6, marginBottom: '12px',
+                    }}>
+                      {skillItem.description}
+                    </p>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {skillItem.related.map((relatedItem) => (
+                        <span key={relatedItem} style={{
+                          fontFamily: 'var(--font-mono)', fontSize: '9px',
+                          color: 'rgba(255,255,255,0.6)',
+                          padding: '4px 8px',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          borderRadius: '100px',
+                          background: 'rgba(255,255,255,0.02)',
+                        }}>
+                          {relatedItem}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Hover detail panel */}
-        <div style={{
-          marginTop: '32px',
-          padding: '24px 28px',
-          background: hoveredSkill ? 'rgba(255,255,255,0.03)' : 'transparent',
-          border: hoveredSkill ? '1px solid var(--border-mid)' : '1px solid transparent',
-          borderRadius: '12px',
-          minHeight: '80px',
-          transition: 'all 0.3s',
-          backdropFilter: hoveredSkill ? 'blur(12px)' : 'none',
-        }}>
-          {hoveredSkill ? (
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '32px' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <h3 style={{
-                    fontFamily: 'var(--font-sans)', fontWeight: 600,
-                    fontSize: '18px', color: 'var(--white)',
-                    letterSpacing: '-0.02em',
-                  }}>
-                    {hoveredSkill.label}
-                  </h3>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '9px',
-                    letterSpacing: '0.12em', color: 'var(--blue)',
-                    padding: '2px 8px',
-                    border: '1px solid rgba(64,96,208,0.25)',
-                    borderRadius: '100px',
-                    textTransform: 'uppercase',
-                  }}>
-                    {hoveredSkill.category}
-                  </span>
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-sans)', fontWeight: 300,
-                  fontSize: '13px', color: 'var(--gray-1)', lineHeight: 1.7,
-                }}>
-                  {hoveredSkill.description}
-                </p>
-              </div>
-              <div style={{ flexShrink: 0 }}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '9px',
-                  letterSpacing: '0.15em', color: 'var(--gray-2)',
-                  marginBottom: '8px', textTransform: 'uppercase',
-                }}>
-                  Related
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {hoveredSkill.related.map((r) => (
-                    <span key={r} style={{
-                      fontFamily: 'var(--font-mono)', fontSize: '10px',
-                      color: 'var(--gray-1)',
-                      padding: '3px 10px',
-                      border: '1px solid var(--border)',
-                      borderRadius: '100px',
-                      background: 'rgba(255,255,255,0.03)',
-                    }}>
-                      {r}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <p style={{
-              fontFamily: 'var(--font-mono)', fontSize: '10px',
-              letterSpacing: '0.12em', color: 'var(--gray-2)',
-              textAlign: 'center', lineHeight: 1.6,
-            }}>
-              hover a bubble to explore
-            </p>
-          )}
+      </div>
+    </section>
+  )
+}'use client'
+
+import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
+
+const skillsData = [
+  {
+    id: 'typescript', label: 'TypeScript', category: 'language', color: 'rgba(64,96,208,0.7)',
+    description: 'Bahasa utama untuk semua proyek web. Digunakan di seluruh full-stack dengan Next.js dan Node.',
+    related: ['React', 'Next.js', 'Node.js'], offsetY: -30, imagePath: '/images/typescript.png'
+  },
+  {
+    id: 'claude', label: 'Claude', category: 'AI Tools', color: 'rgba(217, 119, 87, 0.7)',
+    description: 'Expertise dalam utilisasi Anthropic LLM dan Claude Code secara maksimal untuk percepatan development workflow.',
+    related: ['Anthropic', 'LLM', 'Claude Code'], offsetY: 15, imagePath: '/images/claude.png'
+  },
+  {
+    id: 'java', label: 'Java', category: 'language', color: 'rgba(80,60,160,0.7)',
+    description: 'Strongest systems language. Digunakan untuk membangun EternaFall — full game engine dari nol.',
+    related: ['AWT/Canvas', 'Game Systems'], offsetY: 40, imagePath: '/images/java.png'
+  },
+  {
+    id: 'go', label: 'Go', category: 'language', color: 'rgba(40,140,140,0.65)',
+    description: 'Backend dan tooling. Membangun Grimoire — TUI documentation tool — sepenuhnya dengan Go.',
+    related: ['Bubbletea', 'Cobra', 'CLI'], offsetY: -10, imagePath: '/images/golang.png'
+  },
+  {
+    id: 'react', label: 'React', category: 'frontend', color: 'rgba(64,96,208,0.55)',
+    description: 'Component-driven UI. Digunakan untuk membangun QIOS smart kiosk dan aplikasi web modern.',
+    related: ['Next.js', 'TypeScript'], offsetY: 50, imagePath: '/images/react.png'
+  },
+  {
+    id: 'nextjs', label: 'Next.js', category: 'frontend', color: 'rgba(64,96,208,0.6)',
+    description: 'Full-stack React framework. App Router, API routes, SSR — digunakan di proyek produksi.',
+    related: ['React', 'TypeScript', 'Vercel'], offsetY: -40, imagePath: '/images/nextjs.png'
+  },
+  {
+    id: 'laravel', label: 'Laravel', category: 'backend', color: 'rgba(100,60,60,0.6)',
+    description: 'PHP backend framework. Digunakan untuk Moneytor — AI-powered personal finance app.',
+    related: ['PHP', 'MySQL'], offsetY: 20, imagePath: '/images/laravel.png'
+  },
+  {
+    id: 'nodejs', label: 'Node.js', category: 'backend', color: 'rgba(50,100,70,0.6)',
+    description: 'Server-side JavaScript. API design, REST endpoints, middleware architecture.',
+    related: ['Express', 'TypeScript'], offsetY: -20, imagePath: '/images/nodejs.png'
+  },
+  {
+    id: 'postgres', label: 'PostgreSQL', category: 'data', color: 'rgba(60,80,120,0.55)',
+    description: 'Primary relational database. Schema design, indexing, dan optimasi query.',
+    related: ['MySQL', 'Prisma'], offsetY: 60, imagePath: '/images/postgresql.png'
+  },
+  {
+    id: 'figma', label: 'Figma', category: 'design', color: 'rgba(80,60,100,0.5)',
+    description: 'UI/UX design dan prototyping. Digunakan untuk wireframing sebelum tahap development.',
+    related: ['UI/UX', 'Design Systems'], offsetY: -50, imagePath: '/images/figma.png'
+  },
+  {
+    id: 'php', label: 'PHP', category: 'language', color: 'rgba(90,70,130,0.5)',
+    description: 'Server-side scripting. Digunakan bersama Laravel untuk backend web development.',
+    related: ['Laravel', 'MySQL'], offsetY: 30, imagePath: '/images/php.png'
+  },
+  {
+    id: 'javascript', label: 'JavaScript', category: 'language', color: 'rgba(240,219,79,0.55)',
+    description: 'Core web programming language. Digunakan untuk logika frontend dinamis dan scripting.',
+    related: ['TypeScript', 'React'], offsetY: -15, imagePath: '/images/javascript.png'
+  },
+  {
+    id: 'python', label: 'Python', category: 'language', color: 'rgba(50,90,80,0.5)',
+    description: 'Data analytics dan scripting. Digunakan untuk riset, otomasi, dan eksplorasi Machine Learning.',
+    related: ['Data Analytics', 'Looker Studio'], offsetY: 45, imagePath: '/images/python.png'
+  },
+]
+
+export default function SkillsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [hoveredSkillId, setHoveredSkillId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.15 }
+    )
+    if (sectionRef.current) visibilityObserver.observe(sectionRef.current)
+    return () => visibilityObserver.disconnect()
+  }, [])
+
+  return (
+    <section
+      id="stack"
+      ref={sectionRef}
+      style={{
+        background: '#000000',
+        padding: '120px 56px',
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: '100vh',
+      }}
+    >
+      <style>
+        {`
+          @keyframes floatAsymmetric {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+          }
+        `}
+      </style>
+
+      {/* Subtle deep blue ambient background */}
+      <div style={{
+        position: 'absolute', top: '10%', right: '15%',
+        width: '600px', height: '500px',
+        background: 'radial-gradient(circle, rgba(64,96,208,0.08) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: '100px', textAlign: 'center' }}>
+          <div style={{
+            fontFamily: 'var(--font-mono)', fontSize: '10px',
+            letterSpacing: '0.25em', color: 'rgba(64,96,208,0.9)', marginBottom: '16px',
+          }}>
+            03 / STACK
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-sans)', fontWeight: 600,
+            fontSize: 'clamp(36px, 5vw, 60px)',
+            lineHeight: 1.0, color: '#FFFFFF',
+            letterSpacing: '-0.03em',
+          }}>
+            What I build with
+          </h2>
         </div>
+
+        {/* Hive Container - Asymmetric Layout */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '24px',
+          maxWidth: '950px',
+          margin: '0 auto',
+          paddingBottom: '100px',
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
+          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}>
+          {skillsData.map((skillItem, index) => {
+            const isSkillHovered = hoveredSkillId === skillItem.id
+            const isAnotherSkillHovered = hoveredSkillId !== null && !isSkillHovered
+            const animationDelayOffset = (index % 5) * 0.4
+
+            return (
+              <div
+                key={skillItem.id}
+                onMouseEnter={() => setHoveredSkillId(skillItem.id)}
+                onMouseLeave={() => setHoveredSkillId(null)}
+                style={{
+                  position: 'relative',
+                  width: '120px',
+                  height: '120px',
+                  transform: `translateY(${skillItem.offsetY}px)`,
+                  animation: `floatAsymmetric ${4 + (index % 3)}s ease-in-out infinite`,
+                  animationDelay: `${animationDelayOffset}s`,
+                  zIndex: isSkillHovered ? 50 : 1,
+                  opacity: isAnotherSkillHovered ? 0.3 : 1,
+                  transition: 'opacity 0.4s ease',
+                }}
+              >
+                {/* Inner Container: Liquid Glass Effect */}
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: isSkillHovered ? '280px' : '120px',
+                  height: isSkillHovered ? 'auto' : '120px',
+                  minHeight: isSkillHovered ? '160px' : '120px',
+                  padding: isSkillHovered ? '24px' : '0px',
+                  borderRadius: isSkillHovered ? '24px' : '50%',
+                  background: isSkillHovered 
+                    ? 'rgba(12, 16, 25, 0.9)' 
+                    : 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(16px) saturate(150%)',
+                  border: isSkillHovered 
+                    ? `1px solid rgba(64,96,208,0.5)`
+                    : '1px solid rgba(255, 255, 255, 0.08)',
+                  boxShadow: isSkillHovered 
+                    ? `0 20px 40px rgba(0,0,0,0.8), 0 0 20px ${skillItem.color}` 
+                    : `inset 0 0 25px ${skillItem.color.replace('0.7', '0.2').replace('0.6', '0.2').replace('0.5', '0.2')}, 0 4px 12px rgba(0,0,0,0.1)`,
+                  display: 'flex',
+                  flexDirection: isSkillHovered ? 'column' : 'row',
+                  alignItems: isSkillHovered ? 'flex-start' : 'center',
+                  justifyContent: isSkillHovered ? 'flex-start' : 'center',
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}>
+                  
+                  {/* PNG Image State */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    flexShrink: 0,
+                    transition: 'all 0.4s ease',
+                    marginBottom: isSkillHovered ? '16px' : '0px',
+                    transform: isSkillHovered ? 'scale(0.8)' : 'scale(1)',
+                    transformOrigin: 'top left',
+                    opacity: isSkillHovered ? 1 : 0.85,
+                  }}>
+                    <Image 
+                      src={skillItem.imagePath} 
+                      alt={`${skillItem.label} icon`} 
+                      width={40} 
+                      height={40} 
+                      style={{ objectFit: 'contain' }}
+                      priority={index < 5}
+                    />
+                  </div>
+
+                  {/* Expanded Content */}
+                  <div style={{
+                    opacity: isSkillHovered ? 1 : 0,
+                    height: isSkillHovered ? 'auto' : '0px',
+                    visibility: isSkillHovered ? 'visible' : 'hidden',
+                    transition: 'opacity 0.3s ease 0.1s',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                      <h3 style={{
+                        fontFamily: 'var(--font-sans)', fontWeight: 600,
+                        fontSize: '16px', color: '#FFFFFF',
+                        letterSpacing: '-0.02em', margin: 0
+                      }}>
+                        {skillItem.label}
+                      </h3>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: '8px',
+                        letterSpacing: '0.12em', color: 'rgba(64,96,208,0.9)',
+                        padding: '2px 6px',
+                        border: '1px solid rgba(64,96,208,0.3)',
+                        borderRadius: '100px',
+                        textTransform: 'uppercase',
+                      }}>
+                        {skillItem.category}
+                      </span>
+                    </div>
+
+                    <p style={{
+                      fontFamily: 'var(--font-sans)', fontWeight: 300,
+                      fontSize: '12px', color: 'rgba(255,255,255,0.7)', 
+                      lineHeight: 1.6, marginBottom: '12px',
+                    }}>
+                      {skillItem.description}
+                    </p>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {skillItem.related.map((relatedItem) => (
+                        <span key={relatedItem} style={{
+                          fontFamily: 'var(--font-mono)', fontSize: '9px',
+                          color: 'rgba(255,255,255,0.6)',
+                          padding: '4px 8px',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          borderRadius: '100px',
+                          background: 'rgba(255,255,255,0.02)',
+                        }}>
+                          {relatedItem}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
       </div>
     </section>
   )
