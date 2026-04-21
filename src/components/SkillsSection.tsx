@@ -26,7 +26,7 @@ export default function SkillsSection() {
       ref={sectionRef}
       style={{
         background: '#000000',
-        padding: '0px 56px',
+        padding: '0px 50px',
         position: 'relative',
         overflow: 'hidden',
         minHeight: '80vh',
@@ -41,11 +41,11 @@ export default function SkillsSection() {
           
           @keyframes neonBreathing {
             0%, 100% { 
-              box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 2px var(--skill-color); 
+              box-shadow: 0 25px 100px rgba(0,0,0,0.5), 0 0 2px var(--skill-color); 
               filter: brightness(0.95); 
             }
             50% { 
-              box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 12px var(--skill-color); 
+              box-shadow: 0 25px 100px rgba(0,0,0,0.6), 0 0 12px var(--skill-color); 
               filter: brightness(1.1); 
             }
           }
@@ -253,7 +253,7 @@ export default function SkillsSection() {
                             border: `1px dashed #FFB80080`,
                             borderRadius: '100px',
                           }}>
-                            IN STUDY
+                            EXPERIMENTAL
                           </span>
                         )}
                       </div>
