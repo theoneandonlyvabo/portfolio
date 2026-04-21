@@ -88,7 +88,7 @@ const skillsData = [
     related: ['Local LLM', 'AI Models'], offsetY: -25, imagePath: '/images/ollama.png'
   },
   {
-    id: 'openclaw', label: 'OpenClaw', category: 'AI Tools', color: '#FF3B30', // Updated to Red
+    id: 'openclaw', label: 'OpenClaw', category: 'AI Tools', color: '#FF3B30', 
     isExperimental: true,
     description: 'Eksplorasi penggunaan tool AI tingkat lanjut untuk integrasi workflow, automasi riset, dan research flow development.',
     related: ['AI Agents', 'Automation'], offsetY: 25, imagePath: '/images/openclaw.png'
@@ -215,8 +215,8 @@ export default function SkillsSection() {
                 onMouseLeave={() => setHoveredSkillId(null)}
                 style={{
                   position: 'relative',
-                  width: '120px',
-                  height: '120px',
+                  width: '120px', // Fixed wrapper width
+                  height: '120px', // Fixed wrapper height
                   transform: `translateY(${skillItem.offsetY}px)`,
                   animation: `floatAsymmetric ${4 + (index % 3)}s ease-in-out infinite`,
                   animationDelay: `${animationDelayOffset}s`,
@@ -225,7 +225,7 @@ export default function SkillsSection() {
                   transition: 'opacity 0.4s ease',
                 }}
               >
-                {/* Inner Container */}
+                {/* Inner Container: Expansion logic */}
                 <div style={{
                   '--skill-color': skillItem.color,
                 } as React.CSSProperties}>
@@ -233,19 +233,19 @@ export default function SkillsSection() {
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    transform: 'translate(-50%, -50%)',
+                    transform: 'translate(-50%, -50%)', // Keeps expanding element centered
                     width: isSkillHovered ? '280px' : '120px',
                     height: isSkillHovered ? 'auto' : '120px',
                     minHeight: isSkillHovered ? '160px' : '120px',
                     padding: isSkillHovered ? '24px' : '0px',
-                    borderRadius: isSkillHovered ? '24px' : '50%',
+                    borderRadius: isSkillHovered ? '20px' : '50%',
                     
                     background: '#111111', 
                     border: `2px solid ${skillItem.color}`,
                     // Override default shadow setup for the subtle look when hovered
                     boxShadow: isSkillHovered 
-                      ? `0 20px 40px rgba(0,0,0,0.9), 0 0 25px ${skillItem.color}60` 
-                      : `0 4px 12px rgba(0,0,0,0.5), 0 0 4px ${skillItem.color}`,
+                      ? `0 20px 40px rgba(0,0,0,0.9), 0 0 40px ${skillItem.color}25` 
+                      : `0 4px 12px rgba(0,0,0,0.5), 0 0 20px ${skillItem.color}18`,
                     
                     display: 'flex',
                     flexDirection: isSkillHovered ? 'column' : 'row',
@@ -256,7 +256,15 @@ export default function SkillsSection() {
                     
                     // Apply breathing animation
                     animation: breathAnimation,
-                    transition: 'width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), min-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease',
+                    
+                    // Updated transitions based on requested logic
+                    transition: `
+                      width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      min-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+                      border-radius 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      box-shadow 0.3s ease,
+                      padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+                    `
                   }}>
                     
                     {/* Icon using standard <img> tag for broader compatibility */}
