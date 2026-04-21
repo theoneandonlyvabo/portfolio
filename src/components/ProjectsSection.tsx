@@ -3,27 +3,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { PROJECTS } from '@/lib/constants'
 
-const META: Record<string, { impact: string; role: string; year: string; glow: string }> = {
-  qios: {
-    role: 'Product Lead / Full-Stack',
-    year: '2024',
-    impact: 'Unified finance, inventory, and AI analytics into one SME platform. Built for corporate deployment at scale.',
-    glow: 'rgba(64,96,208,0.12)',
-  },
-  eternalfall: {
-    role: 'Solo Developer',
-    year: '2025',
-    impact: 'Custom Java rendering engine, AP-based battle economy, 3-tier parry system. Shipped because it had meaning, not a deadline.',
-    glow: 'rgba(100,70,200,0.10)',
-  },
-  grimoire: {
-    role: 'Solo Developer',
-    year: '2025',
-    impact: 'Developer documentation tool that lives in the terminal. Built because context-switching mid-flow kills momentum.',
-    glow: 'rgba(40,140,140,0.10)',
-  },
-}
-
 const FEATURED = ['qios', 'eternalfall', 'grimoire']
 
 export default function ProjectsSection() {
@@ -47,60 +26,46 @@ export default function ProjectsSection() {
       id="work"
       ref={ref}
       style={{
-        background: 'var(--black)',
+        background: '#000',
         padding: '120px 56px',
-        position: 'relative',
-        overflow: 'hidden',
       }}
     >
-      {/* Ambient */}
-      <div style={{
-        position: 'absolute', bottom: 0, left: '50%',
-        transform: 'translateX(-50%)',
-        width: '700px', height: '400px',
-        background: 'radial-gradient(ellipse at bottom, rgba(64,96,208,0.05) 0%, transparent 65%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '64px' }}>
+        <div style={{ marginBottom: '72px' }}>
           <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: '10px',
-            letterSpacing: '0.25em', color: 'var(--blue)', marginBottom: '10px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '10px',
+            letterSpacing: '0.25em',
+            color: '#666',
+            marginBottom: '12px',
           }}>
             04 / WORK
           </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-            <h2 style={{
-              fontFamily: 'var(--font-sans)', fontWeight: 600,
-              fontSize: 'clamp(36px, 5vw, 60px)',
-              lineHeight: 1.0, color: 'var(--white)',
-              letterSpacing: '-0.03em',
-            }}>
-              What I shipped
-            </h2>
-            <span style={{
-              fontFamily: 'var(--font-mono)', fontSize: '10px',
-              letterSpacing: '0.15em', color: 'var(--gray-2)',
-            }}>
-              hover to open
-            </span>
-          </div>
+
+          <h2 style={{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 700,
+            fontSize: 'clamp(36px, 5vw, 60px)',
+            lineHeight: 1.05,
+            color: '#fff',
+            letterSpacing: '-0.03em',
+          }}>
+            Selected Work
+          </h2>
         </div>
 
-        {/* Shelf */}
+        {/* Cards */}
         <div style={{
           display: 'flex',
-          gap: '12px',
-          height: '480px',
+          gap: '16px',
+          height: '460px',
           opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 0.8s, transform 0.8s',
+          transform: visible ? 'translateY(0)' : 'translateY(30px)',
+          transition: 'all 0.8s cubic-bezier(0.16,1,0.3,1)',
         }}>
-          {projects.map((project, i) => {
-            const meta = META[project.id]
+          {projects.map((project) => {
             const isActive = active === project.id
             const isOther = active !== null && !isActive
 
@@ -110,204 +75,178 @@ export default function ProjectsSection() {
                 onMouseEnter={() => setActive(project.id)}
                 onMouseLeave={() => setActive(null)}
                 style={{
-                  flex: isActive ? '3 0 0' : isOther ? '0.4 0 0' : '1 0 0',
+                  flex: isActive ? '3 0 0' : isOther ? '0.6 0 0' : '1 0 0',
+                  borderRadius: '16px',
                   overflow: 'hidden',
-                  borderRadius: '12px',
-                  background: 'rgba(255,255,255,0.02)',
-                  border: `1px solid ${isActive ? 'rgba(255,255,255,0.1)' : 'var(--border)'}`,
-                  backdropFilter: 'blur(16px)',
+                  background: '#0A0A0A',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  transition: 'flex 0.5s cubic-bezier(0.16,1,0.3,1)',
                   position: 'relative',
-                  cursor: 'default',
-                  transition: 'flex 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.3s',
                 }}
               >
-                {/* Glow overlay */}
-                <div style={{
-                  position: 'absolute', inset: 0, pointerEvents: 'none',
-                  borderRadius: '12px',
-                  background: `radial-gradient(ellipse at top left, ${meta.glow} 0%, transparent 60%)`,
-                  opacity: isActive ? 1 : 0.4,
-                  transition: 'opacity 0.4s',
-                }} />
 
-                {/* Collapsed label */}
+                {/* Collapsed */}
                 <div style={{
-                  position: 'absolute', inset: 0,
-                  display: 'flex', flexDirection: 'column',
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
-                  padding: '24px 18px',
+                  padding: '20px',
                   opacity: isActive ? 0 : 1,
-                  transition: 'opacity 0.2s',
-                  pointerEvents: isActive ? 'none' : 'auto',
+                  transition: 'opacity 0.25s',
                 }}>
                   <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '9px',
-                    letterSpacing: '0.15em', color: 'var(--gray-2)',
+                    fontSize: '10px',
+                    color: '#666',
+                    fontFamily: 'var(--font-mono)',
                   }}>
-                    {String(i + 1).padStart(2, '0')}
+                    {project.year}
                   </span>
-                  <div style={{
-                    writingMode: 'vertical-rl',
-                    textOrientation: 'mixed',
-                    transform: 'rotate(180deg)',
-                    display: 'flex', flexDirection: 'column',
-                    gap: '10px', alignItems: 'center',
+
+                  <span style={{
+                    fontSize: '16px',
+                    color: '#888',
+                    fontFamily: 'var(--font-sans)',
+                    fontWeight: 500,
                   }}>
-                    <span style={{
-                      fontFamily: 'var(--font-sans)', fontWeight: 500,
-                      fontSize: '16px', color: 'rgba(255,255,255,0.4)',
-                      letterSpacing: '-0.01em',
-                    }}>
-                      {project.title}
-                    </span>
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: '9px',
-                      color: 'var(--gray-2)', letterSpacing: '0.1em',
-                    }}>
-                      {meta.year}
-                    </span>
-                  </div>
-                  <div style={{
-                    width: '4px', height: '4px', borderRadius: '50%',
-                    background: 'var(--gray-2)',
-                  }} />
+                    {project.title}
+                  </span>
                 </div>
 
                 {/* Expanded */}
                 <div style={{
-                  position: 'absolute', inset: 0,
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
                   opacity: isActive ? 1 : 0,
                   transition: 'opacity 0.3s 0.1s',
-                  display: 'flex', flexDirection: 'column',
-                  pointerEvents: isActive ? 'auto' : 'none',
                 }}>
-                  {/* Screenshot placeholder */}
+                  
+                  {/* Screenshot */}
                   <div style={{
-                    flex: '0 0 52%',
-                    background: 'rgba(255,255,255,0.02)',
-                    borderBottom: '1px solid var(--border)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    position: 'relative', overflow: 'hidden',
+                    flex: '0 0 55%',
+                    overflow: 'hidden',
+                    background: '#111',
                   }}>
-                    <div style={{
-                      position: 'absolute', inset: 0,
-                      backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.007) 3px, rgba(255,255,255,0.007) 4px)`,
-                    }} />
-                    {['tl','tr','bl','br'].map((c) => (
-                      <div key={c} style={{
-                        position: 'absolute',
-                        top: c.startsWith('t') ? '12px' : 'auto',
-                        bottom: c.startsWith('b') ? '12px' : 'auto',
-                        left: c.endsWith('l') ? '12px' : 'auto',
-                        right: c.endsWith('r') ? '12px' : 'auto',
-                        width: '10px', height: '10px',
-                        borderTop: c.startsWith('t') ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                        borderBottom: c.startsWith('b') ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                        borderLeft: c.endsWith('l') ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                        borderRight: c.endsWith('r') ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                      }} />
-                    ))}
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: '9px',
-                      letterSpacing: '0.2em', color: 'rgba(255,255,255,0.12)',
-                      position: 'relative', zIndex: 1,
-                    }}>
-                      SCREENSHOT
-                    </span>
+                    <img
+                      src={`/screenshots/${project.id}-ss-1.jpeg`}
+                      alt={project.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transform: isActive ? 'scale(1)' : 'scale(1.05)',
+                        transition: 'transform 0.6s ease',
+                      }}
+                    />
                   </div>
 
-                  {/* Info */}
+                  {/* Content */}
                   <div style={{
-                    flex: 1, padding: '20px 24px',
-                    display: 'flex', flexDirection: 'column',
+                    flex: 1,
+                    padding: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
                     justifyContent: 'space-between',
                   }}>
+                    
                     <div>
                       <div style={{
-                        display: 'flex', alignItems: 'flex-start',
-                        justifyContent: 'space-between', marginBottom: '8px', gap: '10px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        marginBottom: '10px',
+                        gap: '12px',
                       }}>
                         <h3 style={{
-                          fontFamily: 'var(--font-sans)', fontWeight: 600,
-                          fontSize: '22px', lineHeight: 1.1,
-                          letterSpacing: '-0.02em', color: 'var(--white)',
+                          fontSize: '22px',
+                          fontWeight: 600,
+                          color: '#fff',
+                          margin: 0,
                         }}>
                           {project.title}
                         </h3>
+
                         <span style={{
-                          fontFamily: 'var(--font-mono)', fontSize: '8px',
-                          letterSpacing: '0.1em', color: 'rgba(64,96,208,0.8)',
-                          padding: '3px 8px',
-                          border: '1px solid rgba(64,96,208,0.2)',
-                          borderRadius: '100px',
-                          flexShrink: 0, whiteSpace: 'nowrap',
+                          fontSize: '10px',
+                          color: '#888',
+                          fontFamily: 'var(--font-mono)',
+                          whiteSpace: 'nowrap',
                         }}>
-                          {meta.role}
+                          {project.role}
                         </span>
                       </div>
+
                       <p style={{
-                        fontFamily: 'var(--font-sans)', fontWeight: 300,
-                        fontSize: '12px', color: 'var(--gray-1)', lineHeight: 1.7,
+                        fontSize: '13px',
+                        color: '#aaa',
+                        lineHeight: 1.6,
+                        marginBottom: '12px',
                       }}>
-                        {meta.impact}
+                        {project.description}
                       </p>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', gap: '6px' }}>
-                        {project.tags.slice(0, 2).map((tag) => (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        gap: '6px',
+                        flexWrap: 'wrap',
+                      }}>
+                        {project.tags.map(tag => (
                           <span key={tag} style={{
-                            fontFamily: 'var(--font-mono)', fontSize: '8px',
-                            letterSpacing: '0.06em', color: 'var(--gray-2)',
-                            padding: '2px 8px',
-                            border: '1px solid var(--border)',
+                            fontSize: '9px',
+                            color: '#666',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                            padding: '3px 8px',
                             borderRadius: '100px',
-                            background: 'rgba(255,255,255,0.02)',
                           }}>
                             {tag}
                           </span>
                         ))}
                       </div>
-                      <a
-                        href={project.links[0]?.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          fontFamily: 'var(--font-mono)', fontSize: '9px',
-                          letterSpacing: '0.1em', color: 'rgba(64,96,208,0.8)',
-                          textDecoration: 'none',
-                          display: 'flex', alignItems: 'center', gap: '5px',
-                        }}
-                      >
-                        GitHub
-                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none">
-                          <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </a>
+
+                      {project.links[0] && (
+                        <a
+                          href={project.links[0].url}
+                          target="_blank"
+                          style={{
+                            fontSize: '11px',
+                            color: '#fff',
+                            textDecoration: 'none',
+                          }}
+                        >
+                          View →
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
+
               </div>
             )
           })}
         </div>
 
+        {/* Footer */}
         <div style={{
-          marginTop: '16px', display: 'flex', justifyContent: 'space-between',
+          marginTop: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: '10px',
+          color: '#555',
+          fontFamily: 'var(--font-mono)',
         }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)', fontSize: '9px',
-            letterSpacing: '0.2em', color: 'var(--gray-2)',
-          }}>
-            Selected works — {projects.length} projects
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-mono)', fontSize: '9px',
-            letterSpacing: '0.15em', color: 'var(--gray-2)',
-          }}>
-            {new Date().getFullYear()}
-          </span>
+          <span>{projects.length} projects</span>
+          <span>{new Date().getFullYear()}</span>
         </div>
+
       </div>
     </section>
   )

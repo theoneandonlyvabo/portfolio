@@ -9,9 +9,11 @@ export type Project = {
   description: string
   why: string
   tags: string[]
-  links: ProjectLink[]
+  links: { label: string; url: string }[]
   image?: string
-  status: 'active' | 'in-progress' | 'archived'
+  role: string
+  year: string
+  status: "active" | "in-progress" | "archived"
   featured: boolean
 }
 

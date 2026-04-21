@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  images: {
+  icons: {
     formats: ['image/avif', 'image/webp'],
   },
 }

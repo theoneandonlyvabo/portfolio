@@ -5,7 +5,7 @@ export const BIO = {
   title: "Developer | Product Builder",
   subtitle: "Full-stack engineer with game dev depth. Comfortable in Go and Java.",
   description:
-    "Systems Information student at UPN Veteran Jakarta. I build products end-to-end — from strategy to execution. Primary stack: TypeScript/Next.js, Go, Java. Currently shipping QIOS (SME operations platform), Moneytor (AI finance app), and EternaFall (pure Java 2D RPG). Also exploring game architecture, scalable systems, and what actually matters.",
+    "Systems Information student at UPN Veteran Jakarta. I build products end-to-end — from strategy to execution. Primary stack: TypeScript/Next.js, Go, Java.",
   philosophy: "Build from scratch. Understand deeply. Ship with intention.",
 }
 
@@ -14,13 +14,16 @@ export const PROJECTS: Project[] = [
     id: "qios",
     title: "QIOS",
     description:
-      "Web-based SME operations platform integrating finance, inventory, and analytics. AI-driven insights to reduce operational risk. Built with Next.js and TypeScript.",
-    why: "End-to-end product development. From problem identification to full-stack execution with real business impact.",
-    tags: ["Next.js", "TypeScript", "Full Stack", "AI Analytics"],
+      "SME operations platform integrating finance, inventory, and analytics with AI-driven insights.",
+    why:
+      "End-to-end product development. From problem discovery to full-stack execution with real business impact.",
+    tags: ["Next.js", "TypeScript", "Full Stack", "AI"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/qios-web" },
     ],
-    image: "/screenshots/qios.png",
+    image: "/screenshots/qios-ss-1.jpeg",
+    role: "Product Lead / Full-Stack",
+    year: "2024",
     status: "in-progress",
     featured: true,
   },
@@ -28,13 +31,16 @@ export const PROJECTS: Project[] = [
     id: "eternalfall",
     title: "EternaFall",
     description:
-      "Pure Java 2D RPG. Custom rendering engine, battle system with AP economy, NPC dialog system, full inventory architecture. Built without game engine.",
-    why: "Full control over every system. No abstractions hiding how things work. Game architecture and performance optimization from scratch.",
-    tags: ["Java", "Game Dev", "Custom Engine", "Architecture"],
+      "Pure Java 2D RPG with custom rendering engine, battle system, and full game architecture.",
+    why:
+      "Built without a game engine to fully control systems, performance, and architecture from scratch.",
+    tags: ["Java", "Game Dev", "Engine", "Architecture"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/project-eternal" },
     ],
-    image: "/screenshots/eternalfall.png",
+    image: "/screenshots/eternalfall-ss-1.jpeg",
+    role: "Solo Developer",
+    year: "2025",
     status: "active",
     featured: true,
   },
@@ -42,20 +48,23 @@ export const PROJECTS: Project[] = [
     id: "grimoire",
     title: "Grimoire",
     description:
-      "Developer-focused documentation tool built in Go. TUI application for managing code knowledge and team insights directly in the development workflow.",
-    why: "Backend systems thinking. Different paradigm than web. Go's simplicity forces clarity in architecture.",
-    tags: ["Go", "TUI", "CLI", "Developer Tools"],
+      "Terminal-based documentation tool for developers to manage knowledge without leaving the workflow.",
+    why:
+      "Built to eliminate context switching and explore backend/system design using Go.",
+    tags: ["Go", "CLI", "TUI", "Dev Tool"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/grimoire" },
     ],
-    image: "/screenshots/grimoire.png",
+    image: "/screenshots/grimoire-ss-1.jpeg",
+    role: "Solo Developer",
+    year: "2025",
     status: "active",
     featured: true,
   },
 ]
 
 /**
- * ⚠️ Ini buat section simple list (bukan animated bubbles)
+ * simple list section
  */
 export const SKILLS: SkillCategory[] = [
   {
@@ -64,14 +73,14 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     category: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS", "HTML/CSS", "Figma"],
+    items: ["React", "Next.js", "Tailwind", "HTML/CSS", "Figma"],
   },
   {
     category: "Backend & Systems",
-    items: ["Node.js", "Express", "Laravel", "Go (Concurrency)", "REST API"],
+    items: ["Node.js", "Express", "Laravel", "Go Concurrency", "REST API"],
   },
   {
-    category: "Databases & Tools",
+    category: "Data & Tools",
     items: ["MySQL", "PostgreSQL", "MongoDB", "Git", "Linux"],
   },
   {
@@ -86,7 +95,7 @@ export const SKILLS: SkillCategory[] = [
 ]
 
 /**
- * 🔥 Ini yang dipake buat SkillsSection (bubble UI)
+ * animated bubbles
  */
 export const SKILLS_DETAILED: Skill[] = [
   {
@@ -94,66 +103,60 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "TypeScript",
     category: "language",
     color: "#3178C6",
-    description:
-      "Bahasa utama untuk semua proyek web. Digunakan di seluruh full-stack dengan Next.js dan Node.",
-    related: ["React", "Next.js", "Node.js"],
+    description: "Primary language for full-stack web development.",
+    related: ["React", "Next.js", "Node"],
     offsetY: -30,
-    imagePath: "/images/typescript.png",
+    imagePath: "/icons/typescript.png",
   },
   {
     id: "javascript",
     label: "JavaScript",
     category: "language",
     color: "#F7DF1E",
-    description:
-      "Core web programming language. Digunakan untuk logika frontend dinamis dan scripting.",
+    description: "Core web language for dynamic frontend logic.",
     related: ["TypeScript", "React"],
     offsetY: 15,
-    imagePath: "/images/javascript.png",
+    imagePath: "/icons/javascript.png",
   },
   {
     id: "python",
     label: "Python",
     category: "language",
     color: "#3776AB",
-    description:
-      "Data analytics dan scripting. Digunakan untuk riset, otomasi, dan eksplorasi Machine Learning.",
-    related: ["Data Analytics", "Looker Studio"],
+    description: "Used for data analysis and scripting.",
+    related: ["Analytics", "Automation"],
     offsetY: -10,
-    imagePath: "/images/python.png",
+    imagePath: "/icons/python.png",
   },
   {
     id: "java",
     label: "Java",
     category: "language",
     color: "#5382A1",
-    description:
-      "Strongest systems language. Digunakan untuk membangun EternaFall — full game engine dari nol.",
-    related: ["AWT/Canvas", "Game Systems"],
+    description: "Core language for systems and game engine development.",
+    related: ["Game Dev", "Systems"],
     offsetY: 40,
-    imagePath: "/images/java.png",
+    imagePath: "/icons/java.png",
   },
   {
     id: "go",
     label: "Go",
     category: "language",
     color: "#00ADD8",
-    description:
-      "Backend dan tooling. Membangun Grimoire — TUI documentation tool — sepenuhnya dengan Go.",
-    related: ["Bubbletea", "Cobra", "CLI"],
+    description: "Backend and CLI tooling language.",
+    related: ["CLI", "Concurrency"],
     offsetY: -20,
-    imagePath: "/images/golang.png",
+    imagePath: "/icons/golang.png",
   },
   {
     id: "php",
     label: "PHP",
     category: "language",
     color: "#777BB4",
-    description:
-      "Server-side scripting. Digunakan bersama Laravel untuk backend web development.",
+    description: "Backend scripting with Laravel ecosystem.",
     related: ["Laravel", "MySQL"],
     offsetY: 30,
-    imagePath: "/images/php.png",
+    imagePath: "/icons/php.png",
   },
 
   {
@@ -161,41 +164,37 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "React",
     category: "frontend",
     color: "#61DAFB",
-    description:
-      "Component-driven UI. Digunakan untuk membangun QIOS smart kiosk dan aplikasi web modern.",
+    description: "Component-based UI development.",
     related: ["Next.js", "TypeScript"],
     offsetY: -30,
-    imagePath: "/images/react.png",
+    imagePath: "/icons/react.png",
   },
   {
     id: "nextjs",
     label: "Next.js",
     category: "frontend",
     color: "#FFFFFF",
-    description:
-      "Full-stack React framework. App Router, API routes, SSR — digunakan di proyek produksi.",
-    related: ["React", "TypeScript", "Vercel"],
+    description: "Full-stack React framework for production apps.",
+    related: ["React", "Vercel"],
     offsetY: 20,
-    imagePath: "/images/nextjs.png",
+    imagePath: "/icons/nextjs.png",
   },
   {
     id: "nodejs",
     label: "Node.js",
     category: "backend",
     color: "#339933",
-    description:
-      "Server-side JavaScript. API design, REST endpoints, middleware architecture.",
-    related: ["Express", "TypeScript"],
+    description: "Server-side JavaScript runtime.",
+    related: ["Express", "API"],
     offsetY: -40,
-    imagePath: "/images/nodejs.png",
+    imagePath: "/icons/nodejs.png",
   },
   {
     id: "laravel",
     label: "Laravel",
     category: "backend",
     color: "#FF2D20",
-    description:
-      "PHP backend framework. Digunakan untuk Moneytor — AI-powered personal finance app.",
+    description: "PHP framework for backend systems.",
     related: ["PHP", "MySQL"],
     offsetY: 45,
     imagePath:
@@ -207,9 +206,8 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "PostgreSQL",
     category: "data",
     color: "#336791",
-    description:
-      "Primary relational database. Schema design, indexing, dan optimasi query.",
-    related: ["MySQL", "Prisma"],
+    description: "Primary relational database.",
+    related: ["SQL", "Schema Design"],
     offsetY: -15,
     imagePath:
       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
@@ -219,57 +217,43 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "MySQL",
     category: "data",
     color: "#00758F",
-    description:
-      "Relational database management system. Digunakan untuk menyimpan dan mengelola data.",
-    related: ["PHP", "Laravel", "Postgres"],
+    description: "Relational database for web systems.",
+    related: ["Laravel", "PHP"],
     offsetY: 35,
-    imagePath: "/images/mysql.png",
+    imagePath: "/icons/mysql.png",
   },
+
   {
     id: "figma",
     label: "Figma",
     category: "design",
     color: "#F24E1E",
-    description:
-      "UI/UX design dan prototyping. Digunakan untuk wireframing sebelum tahap development.",
-    related: ["UI/UX", "Design Systems"],
+    description: "UI/UX design and prototyping.",
+    related: ["Design System"],
     offsetY: -45,
     imagePath:
       "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
   },
+
   {
     id: "claude",
     label: "Claude",
-    category: "AI Tools",
+    category: "AI",
     color: "#D97757",
-    description:
-      "Expertise dalam utilisasi Anthropic LLM dan Claude Code secara maksimal untuk percepatan development workflow.",
-    related: ["Anthropic", "LLM", "Claude Code"],
+    description: "LLM-assisted development workflow.",
+    related: ["LLM", "AI Tools"],
     offsetY: 15,
-    imagePath: "/images/claude.png",
+    imagePath: "/icons/claude.png",
   },
   {
     id: "ollama",
     label: "Ollama",
-    category: "AI Tools",
+    category: "AI",
     color: "#FFFFFF",
-    description:
-      "Eksperimen menjalankan model LLM secara lokal (Local AI) untuk riset privasi dan efisiensi model deployment.",
-    related: ["Local LLM", "AI Models"],
+    description: "Local LLM experimentation.",
+    related: ["Local AI"],
     offsetY: -25,
-    imagePath: "/images/ollama.png",
-    isExperimental: true,
-  },
-  {
-    id: "openclaw",
-    label: "OpenClaw",
-    category: "AI Tools",
-    color: "#FF3B30",
-    description:
-      "Eksplorasi penggunaan tool AI tingkat lanjut untuk integrasi workflow, automasi riset, dan research flow development.",
-    related: ["AI Agents", "Automation"],
-    offsetY: 25,
-    imagePath: "/images/openclaw.png",
+    imagePath: "/icons/ollama.png",
     isExperimental: true,
   },
 ]
@@ -281,6 +265,4 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { label: "Instagram", url: "https://instagram.com/aireladrivano" },
 ]
 
-export const CHATBOT_SYSTEM_PROMPT = `You are a portfolio assistant for Vano (Airel Adrivano), a full-stack developer and product builder.
-
-... (tetap sama, ga gw ubah)`
+export const CHATBOT_SYSTEM_PROMPT = `You are a portfolio assistant for Vano (Airel Adrivano)...`
