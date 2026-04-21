@@ -20,6 +20,55 @@ export default function SkillsSection() {
     return () => visibilityObserver.disconnect()
   }, [])
 
+  // Fungsi buat nentuin prefix, teks highlight, dan suffix berdasarkan ID
+  const getDynamicTitle = (skillId: string | null) => {
+    if (!skillId) {
+      return { prefixText: 'What I ', highlightText: 'Build', suffixText: ' With' }
+    }
+
+    const idLower = skillId.toLowerCase()
+
+    // Systems
+    if (['java', 'go'].includes(idLower)) {
+      return { prefixText: 'What I Build ', highlightText: 'Systems', suffixText: ' With' }
+    }
+    // Scripts
+    if (['python'].includes(idLower)) {
+      return { prefixText: 'What I Build ', highlightText: 'Scripts', suffixText: ' With' }
+    }
+    // Database
+    if (['postgres', 'mysql'].includes(idLower)) {
+      return { prefixText: 'What I Build ', highlightText: 'Databases', suffixText: ' With' }
+    }
+    // Designs
+    if (['figma'].includes(idLower)) {
+      return { prefixText: 'What I Build ', highlightText: 'Designs', suffixText: ' With' }
+    }
+    // Everything
+    if (['claude'].includes(idLower)) {
+      return { prefixText: 'What I Plan ', highlightText: 'Everything', suffixText: ' With' }
+    }
+    // AI Automations (Prefix berubah jadi "experiment")
+    if (['ollama', 'openclaw'].includes(idLower)) {
+      return { prefixText: 'What I Experiment ', highlightText: 'Automations', suffixText: ' with' }
+    }
+    
+    // Default untuk bahasa & framework web
+    return { prefixText: 'What I Build ', highlightText: 'Web Apps', suffixText: ' With' }
+  }
+
+  const currentTitleData = getDynamicTitle(hoveredSkillId)
+
+  // Ambil warna untuk teks H2 yang lagi di-highlight
+  let activeColor = '#FFFFFF'
+  if (hoveredSkillId) {
+    const activeSkill = SKILLS_DETAILED.find((s) => s.id === hoveredSkillId)
+    if (activeSkill) {
+      const activeIdLower = hoveredSkillId.toLowerCase()
+      activeColor = activeIdLower === 'openclaw' ? '#EF4444' : activeSkill.color
+    }
+  }
+
   return (
     <section
       id="stack"
@@ -39,19 +88,25 @@ export default function SkillsSection() {
             50% { transform: translateY(-15px) rotate(2deg); }
           }
           
+          /* Animasi breathing dibikin subtle biar ngga clashing atau clutter */
           @keyframes neonBreathing {
             0%, 100% { 
-              box-shadow: 0 25px 100px rgba(0,0,0,0.5), 0 0 2px var(--skill-color); 
-              filter: brightness(0.95); 
+              box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 2px var(--skillColor); 
+              filter: brightness(0.98); 
             }
             50% { 
-              box-shadow: 0 25px 100px rgba(0,0,0,0.6), 0 0 12px var(--skill-color); 
-              filter: brightness(1.1); 
+              box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 6px var(--skillColor); 
+              filter: brightness(1.02); 
             }
           }
 
           @keyframes fadeIn {
             to { opacity: 1; }
+          }
+
+          @keyframes textPop {
+            0% { opacity: 0; transform: translateY(8px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
           }
         `}
       </style>
@@ -69,14 +124,27 @@ export default function SkillsSection() {
             03 / STACK
           </div>
 
-          <h2 style={{
-            fontFamily: 'var(--font-sans)',
-            fontWeight: 600,
-            fontSize: 'clamp(36px, 5vw, 60px)',
-            color: '#FFFFFF',
-            letterSpacing: '-0.03em',
-          }}>
-            What I build with
+          <h2
+            key={hoveredSkillId || 'idleState'}
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 600,
+              fontSize: 'clamp(36px, 5vw, 60px)',
+              color: '#FFFFFF',
+              letterSpacing: '-0.03em',
+              animation: 'textPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            }}
+          >
+            {currentTitleData.prefixText}
+            <span
+              style={{
+                color: hoveredSkillId ? activeColor : '#FFFFFF',
+                transition: 'color 0.3s ease',
+              }}
+            >
+              {currentTitleData.highlightText}
+            </span>
+            {currentTitleData.suffixText}
           </h2>
         </div>
 
@@ -95,23 +163,23 @@ export default function SkillsSection() {
           }}
         >
           {SKILLS_DETAILED.map((skillItem, index) => {
+            const currentSkillIdLower = skillItem.id.toLowerCase()
             const isSkillHovered = hoveredSkillId === skillItem.id
-            const isAnotherSkillHovered =
-              hoveredSkillId !== null && !isSkillHovered
-
+            const isAnotherSkillHovered = hoveredSkillId !== null && !isSkillHovered
             const isIdleState = hoveredSkillId === null
+
+            const skillColor = currentSkillIdLower === 'openclaw' ? '#EF4444' : skillItem.color
 
             const breathAnimation = isIdleState
               ? `neonBreathing ${3 + (index % 3)}s ease-in-out infinite ${index * 0.5}s`
               : 'none'
 
-            const isFigma = skillItem.id === 'figma'
+            const isFigma = currentSkillIdLower === 'figma'
             const idleScale = isFigma ? 'scale(0.75)' : 'scale(1)'
             const hoverScale = isFigma ? 'scale(0.55)' : 'scale(0.7)'
             const currentScale = isSkillHovered ? hoverScale : idleScale
 
-            const needsInvert =
-              skillItem.id === 'nextjs' || skillItem.id === 'ollama'
+            const needsInvert = currentSkillIdLower === 'nextjs' || currentSkillIdLower === 'ollama'
 
             const imgFilter = needsInvert && !isSkillHovered
               ? 'invert(1) brightness(1.5)'
@@ -135,7 +203,7 @@ export default function SkillsSection() {
                   transition: 'opacity 0.4s ease',
                 }}
               >
-                <div style={{ '--skill-color': skillItem.color } as React.CSSProperties}>
+                <div style={{ '--skillColor': skillColor } as React.CSSProperties}>
                   <div
                     style={{
                       position: 'absolute',
@@ -148,10 +216,10 @@ export default function SkillsSection() {
                       padding: isSkillHovered ? '24px' : '0px',
                       borderRadius: isSkillHovered ? '20px' : '50%',
                       background: '#111111',
-                      border: `2px solid ${skillItem.color}`,
+                      border: `2px solid ${skillColor}`,
                       boxShadow: isSkillHovered
-                        ? `0 20px 40px rgba(0,0,0,0.9), 0 0 40px ${skillItem.color}25`
-                        : `0 4px 12px rgba(0,0,0,0.5), 0 0 20px ${skillItem.color}18`,
+                        ? `0 20px 40px rgba(0,0,0,0.9), 0 0 40px ${skillColor}40`
+                        : `0 4px 12px rgba(0,0,0,0.5), 0 0 20px ${skillColor}18`,
                       display: 'flex',
                       flexDirection: isSkillHovered ? 'column' : 'row',
                       alignItems: 'center',
@@ -163,7 +231,6 @@ export default function SkillsSection() {
                       filter: isSkillHovered ? 'blur(0px)' : 'blur(0.3px)',
                     }}
                   >
-                    {/* Icon idle */}
                     <div
                       style={{
                         width: '60px',
@@ -172,7 +239,7 @@ export default function SkillsSection() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        position: isSkillHovered ? 'absolute' : 'absolute',
+                        position: 'absolute',
                         top: '50%',
                         left: '50%',
                         transform: `translate(-50%, -50%) ${currentScale}`,
@@ -192,22 +259,15 @@ export default function SkillsSection() {
                       />
                     </div>
 
-                    {/* Expanded */}
                     <div
                       style={{
                         width: '100%',
-
-                        /* 🔥 langsung ilang pas unhover */
                         opacity: isSkillHovered ? 1 : 0,
                         visibility: isSkillHovered ? 'visible' : 'hidden',
-
-                        /* hanya animasi saat masuk, bukan keluar */
                         transition: isSkillHovered
                           ? 'opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s'
                           : 'none',
-
                         transform: isSkillHovered ? 'translateY(0px)' : 'translateY(10px)',
-
                         pointerEvents: isSkillHovered ? 'auto' : 'none',
                       }}
                     >
@@ -219,11 +279,10 @@ export default function SkillsSection() {
                           opacity: 0,
                           animation: 'fadeIn 0.3s ease forwards 0.2s'
                         }}>
-                          <img src={skillItem.imagePath} style={{ width: '100%' }} />
+                          <img src={skillItem.imagePath} style={{ width: '100%', filter: imgFilter === 'invert(1)' ? 'invert(1)' : 'none' }} />
                         </div>
                       )}
 
-                      {/* HEADER ROW */}
                       <div style={{ 
                         display: 'flex', 
                         gap: '8px', 
@@ -237,9 +296,9 @@ export default function SkillsSection() {
 
                         <span style={{
                           fontSize: '8px',
-                          color: skillItem.color,
+                          color: skillColor,
                           padding: '2px 6px',
-                          border: `1px solid ${skillItem.color}60`,
+                          border: `1px solid ${skillColor}60`,
                           borderRadius: '100px',
                         }}>
                           {skillItem.category}
@@ -258,16 +317,14 @@ export default function SkillsSection() {
                         )}
                       </div>
 
-                      {/* DESCRIPTION */}
                       <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>
                         {skillItem.description}
                       </p>
 
-                      {/* TAGS */}
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        {skillItem.related.map((rel) => (
-                          <span key={rel} style={{ fontSize: '9px', opacity: 0.7 }}>
-                            {rel}
+                        {skillItem.related.map((relatedItem) => (
+                          <span key={relatedItem} style={{ fontSize: '9px', opacity: 0.7 }}>
+                            {relatedItem}
                           </span>
                         ))}
                       </div>
