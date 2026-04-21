@@ -23,13 +23,13 @@ export const PROJECTS: Project[] = [
     ],
     image: "/screenshots/qios-ss-1.jpeg",
     role: "Product Lead / Full-Stack",
-    year: "2024",
+    year: "2025",
     status: "in-progress",
     featured: true,
   },
   {
-    id: "eternalfall",
-    title: "EternaFall",
+    id: "eternafall",
+    title: "ETERNAFALL",
     description:
       "Pure Java 2D RPG with custom rendering engine, battle system, and full game architecture.",
     why:
@@ -38,9 +38,9 @@ export const PROJECTS: Project[] = [
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/project-eternal" },
     ],
-    image: "/screenshots/eternalfall-ss-1.jpeg",
+    image: "/screenshots/eternafall-ss-1.jpeg",
     role: "Solo Developer",
-    year: "2025",
+    year: "2026",
     status: "active",
     featured: true,
   },
@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
     ],
     image: "/screenshots/grimoire-ss-1.jpeg",
     role: "Solo Developer",
-    year: "2025",
+    year: "2026",
     status: "active",
     featured: true,
   },

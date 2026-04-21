@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { PROJECTS } from '@/lib/constants'
 
-const FEATURED = ['qios', 'eternalfall', 'grimoire']
+const FEATURED = ['qios', 'eternafall', 'grimoire']
 
 export default function ProjectsSection() {
   const ref = useRef<HTMLDivElement>(null)
