@@ -26,10 +26,10 @@ export default function SkillsSection() {
       ref={sectionRef}
       style={{
         background: '#000000',
-        padding: '120px 56px',
+        padding: '0px 56px',
         position: 'relative',
         overflow: 'hidden',
-        minHeight: '100vh',
+        minHeight: '80vh',
       }}
     >
       <style>
@@ -49,54 +49,37 @@ export default function SkillsSection() {
               filter: brightness(1.1); 
             }
           }
+
+          @keyframes fadeIn {
+            to { opacity: 1; }
+          }
         `}
       </style>
 
-      {/* Background */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          right: '15%',
-          width: '600px',
-          height: '500px',
-          background:
-            'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
         
-        {/* Header */}
         <div style={{ marginBottom: '100px', textAlign: 'center' }}>
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '10px',
-              letterSpacing: '0.25em',
-              color: '#888888',
-              marginBottom: '16px',
-            }}
-          >
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '10px',
+            letterSpacing: '0.25em',
+            color: '#888888',
+            marginBottom: '16px',
+          }}>
             03 / STACK
           </div>
 
-          <h2
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontWeight: 600,
-              fontSize: 'clamp(36px, 5vw, 60px)',
-              lineHeight: 1.0,
-              color: '#FFFFFF',
-              letterSpacing: '-0.03em',
-            }}
-          >
+          <h2 style={{
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 600,
+            fontSize: 'clamp(36px, 5vw, 60px)',
+            color: '#FFFFFF',
+            letterSpacing: '-0.03em',
+          }}>
             What I build with
           </h2>
         </div>
 
-        {/* Skills */}
         <div
           style={{
             display: 'flex',
@@ -116,14 +99,10 @@ export default function SkillsSection() {
             const isAnotherSkillHovered =
               hoveredSkillId !== null && !isSkillHovered
 
-            const animationDelayOffset = (index % 5) * 0.4
-
             const isIdleState = hoveredSkillId === null
-            const breathDuration = 3 + (index % 3)
-            const breathDelay = index * 0.5
 
             const breathAnimation = isIdleState
-              ? `neonBreathing ${breathDuration}s ease-in-out infinite ${breathDelay}s`
+              ? `neonBreathing ${3 + (index % 3)}s ease-in-out infinite ${index * 0.5}s`
               : 'none'
 
             const isFigma = skillItem.id === 'figma'
@@ -151,7 +130,6 @@ export default function SkillsSection() {
                   height: '120px',
                   transform: `translateY(${skillItem.offsetY}px)`,
                   animation: `floatAsymmetric ${4 + (index % 3)}s ease-in-out infinite`,
-                  animationDelay: `${animationDelayOffset}s`,
                   zIndex: isSkillHovered ? 50 : 1,
                   opacity: isAnotherSkillHovered ? 0.3 : 1,
                   transition: 'opacity 0.4s ease',
@@ -164,7 +142,6 @@ export default function SkillsSection() {
                       top: '50%',
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
-                      transformOrigin: 'center',
                       width: isSkillHovered ? '280px' : '120px',
                       height: isSkillHovered ? 'auto' : '120px',
                       minHeight: isSkillHovered ? '160px' : '0px',
@@ -182,39 +159,31 @@ export default function SkillsSection() {
                       cursor: 'pointer',
                       overflow: 'hidden',
                       animation: breathAnimation,
-                      transition: `
-                        width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                        border-radius 0.3s ease,
-                        padding 0.3s ease,
-                        box-shadow 0.3s ease
-                      `
+                      transition: 'all 0.45s cubic-bezier(0.22, 1, 0.36, 1)',
+                      filter: isSkillHovered ? 'blur(0px)' : 'blur(0.3px)',
                     }}
                   >
-                    {/* Icon */}
+                    {/* Icon idle */}
                     <div
                       style={{
-                        display: 'flex',
-                        alignItems: isSkillHovered ? 'flex-start' : 'center',
-                        justifyContent: isSkillHovered ? 'flex-start' : 'center',
                         width: '60px',
                         height: '60px',
                         flexShrink: 0,
-                        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                        position: isSkillHovered ? 'relative' : 'absolute',
-                        top: isSkillHovered ? '0px' : '50%',
-                        left: isSkillHovered ? '0px' : '50%',
-                        transform: isSkillHovered
-                          ? currentScale
-                          : `translate(-50%, -50%) ${currentScale}`,
-                        
-                        transformOrigin: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: isSkillHovered ? 'absolute' : 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: `translate(-50%, -50%) ${currentScale}`,
+                        opacity: isSkillHovered ? 0 : 1,
+                        transition: 'all 0.25s ease',
                         filter: imgFilter,
-                        marginBottom: isSkillHovered ? '12px' : '0px',
                       }}
                     >
                       <img
                         src={skillItem.imagePath}
-                        alt={`${skillItem.label} icon`}
+                        alt=""
                         style={{
                           width: '100%',
                           height: '100%',
@@ -227,23 +196,42 @@ export default function SkillsSection() {
                     <div
                       style={{
                         width: '100%',
-                        pointerEvents: isSkillHovered ? 'auto' : 'none',
-                        height: isSkillHovered ? 'auto' : '0px',
+
+                        /* 🔥 langsung ilang pas unhover */
                         opacity: isSkillHovered ? 1 : 0,
                         visibility: isSkillHovered ? 'visible' : 'hidden',
-                        overflow: 'hidden',
-                        transition: 'opacity 0.25s ease 0.35s, transform 0.25s ease 0.35s',
+
+                        /* hanya animasi saat masuk, bukan keluar */
+                        transition: isSkillHovered
+                          ? 'opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s'
+                          : 'none',
+
                         transform: isSkillHovered ? 'translateY(0px)' : 'translateY(10px)',
+
+                        pointerEvents: isSkillHovered ? 'auto' : 'none',
                       }}
                     >
+                      {isSkillHovered && (
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          marginBottom: '10px',
+                          opacity: 0,
+                          animation: 'fadeIn 0.3s ease forwards 0.2s'
+                        }}>
+                          <img src={skillItem.imagePath} style={{ width: '100%' }} />
+                        </div>
+                      )}
+
+                      {/* HEADER ROW */}
                       <div style={{ 
                         display: 'flex', 
                         gap: '8px', 
                         marginBottom: '8px', 
                         flexWrap: 'wrap',
-                        width: '100%',
-                        justifyContent: 'flex-start',
-                      }}>                        <h3 style={{ fontSize: '16px', color: '#fff', margin: 0 }}>
+                        alignItems: 'center'
+                      }}>
+                        <h3 style={{ fontSize: '16px', color: '#fff', margin: 0 }}>
                           {skillItem.label}
                         </h3>
 
@@ -270,10 +258,12 @@ export default function SkillsSection() {
                         )}
                       </div>
 
-                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)' }}>
+                      {/* DESCRIPTION */}
+                      <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.7)', marginBottom: '10px' }}>
                         {skillItem.description}
                       </p>
 
+                      {/* TAGS */}
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {skillItem.related.map((rel) => (
                           <span key={rel} style={{ fontSize: '9px', opacity: 0.7 }}>

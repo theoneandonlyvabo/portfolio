@@ -101,7 +101,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "typescript",
     label: "TypeScript",
-    category: "language",
+    category: "Language",
     color: "#3178C6",
     description: "Primary language for full-stack web development.",
     related: ["React", "Next.js", "Node"],
@@ -111,7 +111,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "javascript",
     label: "JavaScript",
-    category: "language",
+    category: "Language",
     color: "#F7DF1E",
     description: "Core web language for dynamic frontend logic.",
     related: ["TypeScript", "React"],
@@ -121,7 +121,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "python",
     label: "Python",
-    category: "language",
+    category: "Language",
     color: "#3776AB",
     description: "Used for data analysis and scripting.",
     related: ["Analytics", "Automation"],
@@ -131,7 +131,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "java",
     label: "Java",
-    category: "language",
+    category: "Language",
     color: "#5382A1",
     description: "Core language for systems and game engine development.",
     related: ["Game Dev", "Systems"],
@@ -141,7 +141,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "go",
     label: "Go",
-    category: "language",
+    category: "Language",
     color: "#00ADD8",
     description: "Backend and CLI tooling language.",
     related: ["CLI", "Concurrency"],
@@ -151,7 +151,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "php",
     label: "PHP",
-    category: "language",
+    category: "Language",
     color: "#777BB4",
     description: "Backend scripting with Laravel ecosystem.",
     related: ["Laravel", "MySQL"],
@@ -162,7 +162,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "react",
     label: "React",
-    category: "frontend",
+    category: "Frontend",
     color: "#61DAFB",
     description: "Component-based UI development.",
     related: ["Next.js", "TypeScript"],
@@ -172,7 +172,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "nextjs",
     label: "Next.js",
-    category: "frontend",
+    category: "Frontend",
     color: "#FFFFFF",
     description: "Full-stack React framework for production apps.",
     related: ["React", "Vercel"],
@@ -182,7 +182,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "nodejs",
     label: "Node.js",
-    category: "backend",
+    category: "Backend",
     color: "#339933",
     description: "Server-side JavaScript runtime.",
     related: ["Express", "API"],
@@ -192,7 +192,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "laravel",
     label: "Laravel",
-    category: "backend",
+    category: "Backend",
     color: "#FF2D20",
     description: "PHP framework for backend systems.",
     related: ["PHP", "MySQL"],
@@ -204,7 +204,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "postgres",
     label: "PostgreSQL",
-    category: "data",
+    category: "Data",
     color: "#336791",
     description: "Primary relational database.",
     related: ["SQL", "Schema Design"],
@@ -215,7 +215,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "mysql",
     label: "MySQL",
-    category: "data",
+    category: "Data",
     color: "#00758F",
     description: "Relational database for web systems.",
     related: ["Laravel", "PHP"],
@@ -226,7 +226,7 @@ export const SKILLS_DETAILED: Skill[] = [
   {
     id: "figma",
     label: "Figma",
-    category: "design",
+    category: "Design",
     color: "#F24E1E",
     description: "UI/UX design and prototyping.",
     related: ["Design System"],
@@ -256,6 +256,17 @@ export const SKILLS_DETAILED: Skill[] = [
     imagePath: "/icons/ollama.png",
     isExperimental: true,
   },
+  {
+  id: 'openclaw',
+  label: 'OpenClaw',
+  category: 'AI / Tools',
+  description: 'Lightweight local LLM orchestration & experimentation tool.',
+  color: '#ff3232', // bebas, tapi usahain konsisten palette lo
+  offsetY: 10, // biar ga flat (lo udah pake ini buat layout organic)
+  related: ['LLM', 'Local AI', 'Ollama', 'Prompting'],
+  imagePath: '/icons/openclaw.png', // pastiin file ada
+  isExperimental: true,
+}
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [
