@@ -3,9 +3,9 @@ import type { Project, SkillCategory, SocialLink, Skill } from "./types"
 export const BIO = {
   name: "Vano",
   title: "Developer | Product Builder",
-  subtitle: "Full-stack engineer with game dev depth. Comfortable in Go and Java.",
+  subtitle: "Full-stack engineer with systems and game dev depth.",
   description:
-    "Systems Information student at UPN Veteran Jakarta. I build products end-to-end — from strategy to execution. Primary stack: TypeScript/Next.js, Go, Java.",
+    "Systems Information student at UPN Veteran Jakarta. I build products end-to-end — from problem discovery, system design, to implementation. Focused on TypeScript/Next.js, Go, and Java.",
   philosophy: "Build from scratch. Understand deeply. Ship with intention.",
 }
 
@@ -14,10 +14,10 @@ export const PROJECTS: Project[] = [
     id: "qios",
     title: "QIOS",
     description:
-      "SME operations platform integrating finance, inventory, and analytics with AI-driven insights.",
+      "Multi-tenant SME operations platform handling finance, inventory, and analytics with structured data flows and AI-assisted insights.",
     why:
-      "End-to-end product development. From problem discovery to full-stack execution with real business impact.",
-    tags: ["Next.js", "TypeScript", "Full Stack", "AI"],
+      "Focused on real-world system design: multi-tenant architecture, data isolation, and operational workflows from scratch.",
+    tags: ["Next.js", "TypeScript", "Full Stack", "Multi-tenant", "System Design"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/qios-web" },
     ],
@@ -31,10 +31,10 @@ export const PROJECTS: Project[] = [
     id: "eternafall",
     title: "ETERNAFALL",
     description:
-      "Pure Java 2D RPG with custom rendering engine, battle system, and full game architecture.",
+      "2D RPG built in pure Java with a custom rendering loop, entity system, and battle mechanics without relying on external engines.",
     why:
-      "Built without a game engine to fully control systems, performance, and architecture from scratch.",
-    tags: ["Java", "Game Dev", "Engine", "Architecture"],
+      "Exploration of low-level control over game architecture, including rendering pipeline, game loop, and system modularity.",
+    tags: ["Java", "Game Development", "Rendering", "Engine Architecture"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/project-eternal" },
     ],
@@ -48,10 +48,10 @@ export const PROJECTS: Project[] = [
     id: "grimoire",
     title: "Grimoire",
     description:
-      "Terminal-based documentation tool for developers to manage knowledge without leaving the workflow.",
+      "Terminal-based knowledge management tool designed for developers to capture and retrieve information without leaving the CLI.",
     why:
-      "Built to eliminate context switching and explore backend/system design using Go.",
-    tags: ["Go", "CLI", "TUI", "Dev Tool"],
+      "Built to explore CLI ergonomics, file-based data handling, and lightweight system design using Go.",
+    tags: ["Go", "CLI", "TUI", "Developer Tooling", "Systems"],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/grimoire" },
     ],
@@ -63,9 +63,6 @@ export const PROJECTS: Project[] = [
   },
 ]
 
-/**
- * simple list section
- */
 export const SKILLS: SkillCategory[] = [
   {
     category: "Languages",
@@ -77,7 +74,7 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     category: "Backend & Systems",
-    items: ["Node.js", "Express", "Laravel", "Go Concurrency", "REST API"],
+    items: ["Express", "Laravel", "Go Concurrency", "REST API"],
   },
   {
     category: "Data & Tools",
@@ -94,17 +91,15 @@ export const SKILLS: SkillCategory[] = [
   },
 ]
 
-/**
- * animated bubbles
- */
 export const SKILLS_DETAILED: Skill[] = [
   {
     id: "java",
     label: "Java",
     category: "Language",
     color: "#5382A1",
-    description: "Core language for systems and game engine development.",
-    related: ["Game Dev", "Systems"],
+    description:
+      "Used for building custom systems and game engine architecture with full control over memory and execution flow.",
+    related: ["Game Engine", "Systems Design"],
     offsetY: 40,
     imagePath: "/icons/java.png",
   },
@@ -113,8 +108,9 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "Go",
     category: "Language",
     color: "#00ADD8",
-    description: "Backend and CLI tooling language.",
-    related: ["CLI", "Concurrency"],
+    description:
+      "Used for backend services and CLI tools, leveraging concurrency primitives for efficient system-level operations.",
+    related: ["Concurrency", "CLI Tools", "Backend Systems"],
     offsetY: -20,
     imagePath: "/icons/golang.png",
   },
@@ -123,8 +119,9 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "Python",
     category: "Language",
     color: "#3776AB",
-    description: "Used for data analysis and scripting.",
-    related: ["Analytics", "Automation"],
+    description:
+      "Used for scripting, data processing, and lightweight automation tasks.",
+    related: ["Automation", "Data Processing"],
     offsetY: -10,
     imagePath: "/icons/python.png",
   },
@@ -133,8 +130,9 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "TypeScript",
     category: "Language",
     color: "#3178C6",
-    description: "Primary language for full-stack web development.",
-    related: ["React", "Next.js", "Node"],
+    description:
+      "Primary language for building scalable full-stack applications with strong typing and maintainable architecture.",
+    related: ["Next.js", "API Design", "Frontend Architecture"],
     offsetY: -30,
     imagePath: "/icons/typescript.png",
   },
@@ -143,8 +141,9 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "JavaScript",
     category: "Language",
     color: "#F7DF1E",
-    description: "Core web language for dynamic frontend logic.",
-    related: ["TypeScript", "React"],
+    description:
+      "Core language for web runtime behavior and interoperability across frontend and backend environments.",
+    related: ["Browser APIs", "Node.js"],
     offsetY: 15,
     imagePath: "/icons/javascript.png",
   },
@@ -153,8 +152,9 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "PHP",
     category: "Language",
     color: "#777BB4",
-    description: "Backend scripting with Laravel ecosystem.",
-    related: ["Laravel", "MySQL"],
+    description:
+      "Used within Laravel ecosystem to build structured backend systems and handle server-side logic.",
+    related: ["Laravel", "Backend Systems"],
     offsetY: 30,
     imagePath: "/icons/php.png",
   },
@@ -163,82 +163,86 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "Laravel",
     category: "Backend",
     color: "#FF2D20",
-    description: "PHP framework for backend systems.",
-    related: ["PHP", "MySQL"],
+    description:
+      "Framework for building structured backend applications with MVC patterns and database-driven workflows.",
+    related: ["PHP", "MySQL", "REST API"],
     offsetY: 45,
     imagePath: "/icons/laravel.png",
-  },
-  {
-    id: "nodejs",
-    label: "Node.js",
-    category: "Backend",
-    color: "#339933",
-    description: "Server-side JavaScript runtime.",
-    related: ["Express", "API"],
-    offsetY: -40,
-    imagePath: "/icons/nodejs.png",
   },
   {
     id: "nextjs",
     label: "Next.js",
     category: "Backend & Frontend",
     color: "#FFFFFF",
-    description: "Full-stack React framework for production apps.",
-    related: ["React", "Vercel"],
+    description:
+      "Full-stack React framework used for building production-ready applications with server-side rendering and API routes.",
+    related: ["React", "TypeScript", "SSR"],
     offsetY: 20,
     imagePath: "/icons/nextjs.png",
   },
   {
-    id: "react",
-    label: "React",
-    category: "Frontend",
-    color: "#61DAFB",
-    description: "Component-based UI development.",
-    related: ["Next.js", "TypeScript"],
+    id: "springboot",
+    label: "Spring Boot",
+    category: "Backend",
+    color: "#45d000",
+    description:
+      "Java framework for building scalable backend services with structured configuration and dependency management.",
+    related: ["Java", "REST API"],
     offsetY: -30,
-    imagePath: "/icons/react.png",
+    imagePath: "/icons/springboot.png",
+  },
+  {
+    id: "mysql",
+    label: "MySQL",
+    category: "Data",
+    color: "#006c85",
+    description:
+      "Relational database used for structured data storage in transactional systems.",
+    related: ["SQL", "Laravel"],
+    offsetY: 35,
+    imagePath: "/icons/mysql.png",
   },
   {
     id: "postgres",
     label: "PostgreSQL",
     category: "Data",
     color: "#336791",
-    description: "Primary relational database.",
-    related: ["SQL", "Schema Design"],
+    description:
+      "Primary relational database for designing robust schemas and handling complex queries.",
+    related: ["Schema Design", "Query Optimization"],
     offsetY: -15,
-    imagePath:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+    imagePath: "/icons/postgresql.png",
   },
   {
-    id: "mysql",
-    label: "MySQL",
+    id: "mongodb",
+    label: "MongoDB",
     category: "Data",
-    color: "#00758F",
-    description: "Relational database for web systems.",
-    related: ["Laravel", "PHP"],
-    offsetY: 35,
-    imagePath: "/icons/mysql.png",
+    color: "#47A248",
+    description:
+      "Document-based database used for flexible and unstructured data storage when schema rigidity is not required.",
+    related: ["NoSQL", "Flexible Schema"],
+    offsetY: 25,
+    imagePath: "/icons/mongodb.png",
   },
-
   {
     id: "figma",
     label: "Figma",
     category: "UI/UX / Design",
     color: "#F24E1E",
-    description: "UI/UX design and prototyping.",
-    related: ["Design System"],
+    description:
+      "Used for designing interfaces and prototyping product flows before implementation.",
+    related: ["UI Systems", "Design Workflow"],
     offsetY: -45,
-    imagePath:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+    imagePath: "/icons/figma.png",
   },
-
   {
     id: "claude",
     label: "Claude",
     category: "AI",
     color: "#D97757",
-    description: "LLM-assisted development workflow.",
-    related: ["LLM", "AI Tools"],
+    description:
+      "Used as an LLM assistant to accelerate development, reasoning, and code iteration.",
+    related: ["LLM Workflow", "AI-assisted Dev"],
     offsetY: 15,
     imagePath: "/icons/claude.png",
   },
@@ -247,23 +251,25 @@ export const SKILLS_DETAILED: Skill[] = [
     label: "Ollama",
     category: "AI",
     color: "#FFFFFF",
-    description: "Local LLM experimentation.",
-    related: ["Local AI"],
+    description:
+      "Used for running and experimenting with local LLMs in controlled environments.",
+    related: ["Local AI", "LLM Systems"],
     offsetY: -25,
     imagePath: "/icons/ollama.png",
     isExperimental: true,
   },
   {
-  id: 'openclaw',
-  label: 'OpenClaw',
-  category: 'AI / Tools',
-  description: 'Lightweight local LLM orchestration & experimentation tool.',
-  color: '#ff3232', // bebas, tapi usahain konsisten palette lo
-  offsetY: 10, // biar ga flat (lo udah pake ini buat layout organic)
-  related: ['LLM', 'Local AI', 'Ollama', 'Prompting'],
-  imagePath: '/icons/openclaw.png', // pastiin file ada
-  isExperimental: true,
-}
+    id: "openclaw",
+    label: "OpenClaw",
+    category: "AI / Tools",
+    description:
+      "Lightweight tool for orchestrating and experimenting with local LLM workflows.",
+    color: "#ff3232",
+    offsetY: 10,
+    related: ["LLM", "Local AI", "Prompting"],
+    imagePath: "/icons/openclaw.png",
+    isExperimental: true,
+  },
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [

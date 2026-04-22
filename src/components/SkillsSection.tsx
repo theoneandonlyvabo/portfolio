@@ -29,7 +29,7 @@ export default function SkillsSection() {
     const idLower = skillId.toLowerCase()
 
     // Systems
-    if (['java', 'go'].includes(idLower)) {
+    if (['java', 'go', 'springboot'].includes(idLower)) {
       return { prefixText: 'What I Build ', highlightText: 'Systems', suffixText: ' With' }
     }
     // Scripts
