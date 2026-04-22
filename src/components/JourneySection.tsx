@@ -181,7 +181,19 @@ export default function AboutAndJourneySection() {
               textAlign: 'justify', 
               letterSpacing: '0.01em', 
             }}>
-              My name's Vano. I don’t just build products, I chase them down from raw, unstructured ideas into something tangible, something that works, something that matters, operating at the intersection of business impact, experimentation, and execution while constantly refining how problems are understood and solved; every project I take on is a reflection of how I think daily, dissecting needs, aligning goals, and engineering solutions that don’t just exist, but deliver with intention.
+              My name is Vano. I’m driven by creation, imagination, and the urge to build things that actually matter. Since I was young, I’ve always thought in scale, not just about experiencing the world, but about shaping something that leaves a mark on it. Ambition has never been something I need to manage, it’s just how I naturally operate.
+            </p>
+            <p style={{
+              fontFamily: 'var(--font-sans)', 
+              fontSize: '15px',
+              color: 'rgba(255,255,255,0.75)', 
+              lineHeight: 1.85,
+              fontWeight: 300,
+              marginBottom: '28px',
+              textAlign: 'justify', 
+              letterSpacing: '0.01em',
+            }}>
+              That mindset pushed me into software engineering and product development. I’m drawn to the process of turning nothing into something real, something structured, something usable. Most of my work right now is in web development because it gives me speed and flexibility to grow, but my real focus leans deeper into backend systems, architecture, and how things actually work under the surface, especially through Java and Go in side projects and collaborations.
             </p>
             <p style={{
               fontFamily: 'var(--font-sans)', 
@@ -192,7 +204,7 @@ export default function AboutAndJourneySection() {
               textAlign: 'justify', 
               letterSpacing: '0.01em',
             }}>
-              As a collaborative, detail-oriented builder, I lead with clarity and direction while staying adaptive in the process, treating development as an evolving system where iteration, curiosity, and precision coexist, allowing me to consistently translate what people actually need into products that feel right, function seamlessly, and solve problems before they even need to be explained.
+              At the core, I don’t complicate what I do. I build, I learn, I refine. Every decision comes back to one principle: create and impact the world. As a famous saying went: "If You wanna make history, You gotta call Your own shots."
             </p>
           </div>
 
