@@ -1,5 +1,6 @@
 'use client'
 
+import DecryptedText from '@/components/DecryptedText'
 import { useEffect, useState } from 'react'
 import Aurora from '@/components/Aurora'
 
@@ -10,13 +11,6 @@ const ROLES = [
   'Game Developer',
   'UI/UX Designer',
   'Innovator',
-]
-
-const INFO = [
-  { sub: 'Based in',   label: 'Jakarta, ID'   },
-  { sub: 'Discipline', label: 'Full-Stack'     },
-  { sub: 'Education',  label: 'UPNVJ'  },
-  { sub: 'Status',     label: 'Open to Collab'      },
 ]
 
 function RoleCapsule() {
@@ -171,11 +165,16 @@ export default function Hero() {
             fontSize: 'clamp(56px, 9vw, 128px)',
             lineHeight: 1.0, letterSpacing: '-0.035em',
             color: '#f0f0f4',
-            marginTop: '96px',
+            marginTop: '35px',
             marginBottom: '22px',
           }}
         >
-          aireladrivano
+        <DecryptedText 
+          text="aireladrivano"
+          animateOn="view"
+          speed={50}
+          sequential={true}
+        />
         </h1>
 
         {/* Role capsule */}
@@ -249,56 +248,7 @@ export default function Hero() {
             Connect with me
           </a>
         </div>
-
-        {/* Info labels */}
-        <div
-          className="fade-in"
-          style={{
-            animationDelay: '0.65s', opacity: 0,
-            display: 'flex', gap: '52px',
-            paddingTop: '24px',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-          }}
-        >
-          {INFO.map((item) => (
-            <div key={item.label} style={{
-              display: 'flex', flexDirection: 'column',
-              gap: '4px', alignItems: 'center',
-            }}>
-              <span style={{
-                fontFamily: 'var(--font-mono)', fontSize: '9px',
-                letterSpacing: '0.18em', color: 'rgba(64,96,208,0.65)',
-                textTransform: 'uppercase',
-              }}>
-                {item.sub}
-              </span>
-              <span style={{
-                fontFamily: 'var(--font-sans)', fontWeight: 400,
-                fontSize: '12px', color: 'rgba(255,255,255,0.55)',
-              }}>
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div
-        className="fade-in"
-        style={{
-          animationDelay: '1s', opacity: 0,
-          position: 'absolute', bottom: '28px', left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-        }}
-      >
-        <div style={{
-          width: '1px', height: '36px',
-          background: 'linear-gradient(to bottom, rgba(64,96,208,0.6), transparent)',
-        }} />
-      </div>
-
     </section>
   )
 }
