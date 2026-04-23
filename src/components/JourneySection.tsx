@@ -146,7 +146,7 @@ export default function AboutAndJourneySection() {
         <div style={{ marginBottom: '70px' }}>
           <div style={{
             fontFamily: 'var(--font-mono)', fontSize: '10px',
-            letterSpacing: '0.25em', color: 'rgba(64,96,208,0.9)',
+            letterSpacing: '0.25em', color: '#888888',
             marginBottom: '16px',
           }}>
             01 / ORIGIN

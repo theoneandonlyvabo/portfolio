@@ -150,7 +150,7 @@ function getAnimParams(id: string) {
             color: '#888888',
             marginBottom: '16px',
           }}>
-            03 / STACK
+            02 / STACK
           </div>
 
           <h2
@@ -251,8 +251,8 @@ function getAnimParams(id: string) {
                       background: '#111111',
                       border: `2px solid ${skillColor}`,
                       boxShadow: isSkillHovered
-                        ? `0 20px 40px rgba(0,0,0,0.9), 0 0 40px ${skillColor}40` // Glow Opacity
-                        : `0 4px 12px rgba(0,0,0,0.5), 0 0 25px ${skillColor}20`, // Glow Opacity
+                        ? `0 20px 40px rgba(0,0,0,0.9), 0 0 40px ${skillColor}10` // Glow Opacity
+                        : `0 4px 12px rgba(0,0,0,0.5), 0 0 12px ${skillColor}5`, // Glow Opacity
                       display: 'flex',
                       flexDirection: isSkillHovered ? 'column' : 'row',
                       alignItems: 'center',
