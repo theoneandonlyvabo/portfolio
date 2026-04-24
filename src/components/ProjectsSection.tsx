@@ -103,7 +103,7 @@ export default function ProjectsSection() {
             color: '#FFFFFF',
             letterSpacing: '-0.03em',
           }}>
-            Selected Work
+            Featured Projects
           </h2>
         </div>
 
