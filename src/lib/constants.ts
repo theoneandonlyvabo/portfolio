@@ -14,16 +14,16 @@ export const PROJECTS: Project[] = [
     id: "qios",
     title: "QIOS",
     description:
-      "One dashboard for payments, inventory, and AI insights. Eliminates spreadsheet chaos and tool fragmentation for Indonesian SMEs. Cuts operational overhead by 60%. Built with Laravel and Next.js.",
+      "One dashboard for payments, inventory, and AI insights. Eliminates spreadsheet chaos and tool fragmentation for Indonesian SMEs. Cuts operational overhead by 60%.",
     why:
       "Solving real SME problems with full-stack execution. From discovery and architecture to deployment and business impact.",
-    tags: ["SCM", "Business Intelligence", "SaaS"],
+    tags: ["SaaS", "SCM", "Business Intelligence"],
     techStack: [
-      { name: "Laravel", icon: "/icons/laravel.png", alt: "Backend Framework" },
       { name: "Next.js", icon: "/icons/nextjs.png", alt: "Frontend Framework" },
+      { name: "Go (Gin)", icon: "/icons/gin.png", alt: "Backend Framework" },
       { name: "PostgreSQL", icon: "/icons/postgresql.png", alt: "Database" },
-      { name: "Python", icon: "/icons/python.png", alt: "Language" },
       { name: "Midtrans", icon: "/icons/midtrans.png", alt: "Payment Gateway" },
+      { name: "JWT", icon: "/icons/jwt.png", alt: "Authentication" },
       { name: "Biznet GioCloud", icon: "/icons/biznetgiocloud.png", alt: "Cloud Provider" }
     ],
     links: [
@@ -92,7 +92,7 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     category: "Backend & Systems",
-    items: ["Express", "Laravel", "Go Concurrency", "REST API"],
+    items: ["Express", "Laravel", "Go", "REST API"],
   },
   {
     category: "Data & Tools",
@@ -161,7 +161,7 @@ export const SKILLS_DETAILED: Skill[] = [
     color: "#00ADD8",
     description:
       "Backend and CLI tooling language. Used to build Grimoire — a terminal-first developer documentation tool. Chosen for simplicity, fast compilation, and first-class concurrency.",
-    related: ["CLI", "TUI", "Concurrency", "Bubbletea"],
+    related: ["Concurrency", "Bubbletea", "Gin"],
     offsetY: -20,
     imagePath: "/icons/golang.png",
   },
