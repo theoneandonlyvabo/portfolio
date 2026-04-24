@@ -35,9 +35,37 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if (window.scrollY > 0) {
-                window.scrollTo(0, 0);
-              }
+              (function() {
+                // Clear any saved scroll position
+                if (window.history && window.history.scrollRestoration) {
+                  window.history.scrollRestoration = 'manual';
+                }
+                
+                // Force scroll to top on page show
+                window.addEventListener('pageshow', function(event) {
+                  if (event.persisted) {
+                    window.scrollTo(0, 0);
+                  }
+                });
+                
+                // Run immediately and again after load
+                var scrollToTop = function() {
+                  window.scrollTo(0, 0);
+                };
+                
+                if (document.readyState === 'complete') {
+                  scrollToTop();
+                } else {
+                  window.addEventListener('load', scrollToTop);
+                }
+                
+                // Also try on DOMContentLoaded
+                if (document.readyState !== 'loading') {
+                  scrollToTop();
+                } else {
+                  document.addEventListener('DOMContentLoaded', scrollToTop);
+                }
+              })();
             `,
           }}
         />

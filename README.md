@@ -25,7 +25,7 @@ Right now, I’m on the grind building **personal and freelance projects**, shar
 ---
 
 ## 🛠️ Tech Stack
-<img src="https://skillicons.dev/icons?i=java,go,js,ts,next,laravel,mysql,postgres,mongodb,git,github" />
+<img src="https://skillicons.dev/icons?i=java,go,js,ts,php,next,laravel,mysql,postgres,mongodb,git,github" />
 
 ---
 

@@ -34,7 +34,11 @@
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; background: var(--black); }
+html { 
+  scroll-behavior: auto; 
+  background: var(--black); 
+  overscroll-behavior: none;
+}
 
 body {
   background: var(--black);
