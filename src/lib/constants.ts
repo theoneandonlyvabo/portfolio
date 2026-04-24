@@ -40,10 +40,10 @@ export const PROJECTS: Project[] = [
     id: "eternafall",
     title: "ETERNAFALL",
     description:
-      "Pure Java 2D RPG with custom rendering engine, battle system, and full game architecture.",
+      "A dark RPG set in Witherfeld, a world where gods fell to corruption and left humanity to rot. Hand-crafted from pure Java, no engine, no shortcuts. Turn-based combat, deep lore, and a story that loops back on itself.",
     why:
       "Built without a game engine to fully control systems, performance, and architecture from scratch.",
-    tags: ["Game Dev", "Engine", "Architecture"],
+    tags: ["Indie Game Development", "Engine", "Architecture"],
     techStack: [
       { name: "Java", icon: "/icons/java.png" },
     ],
@@ -61,13 +61,14 @@ export const PROJECTS: Project[] = [
     id: "grimoire",
     title: "Grimoire",
     description:
-      "Terminal-based documentation tool for developers to manage knowledge without leaving the workflow.",
+      "Grimoire, a terminal-native documentation tool that doesn't just store what you built, but why you built it, where it's going, and what it means to your codebase. All without leaving the terminal.",
     why:
       "Built to eliminate context switching and explore backend/system design using Go.",
     tags: ["CLI", "TUI", "Dev Tool"],
     techStack: [
       { name: "Go", icon: "/icons/golang.png" },
-      { name: "Bubble Tea", icon: "/icons/bubbletea.png" }
+      { name: "Bubble Tea", icon: "/icons/bubbletea.png" },
+      { name: "Cobra", icon: "/icons/cobra.png" }
     ],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/grimoire" },
