@@ -55,7 +55,7 @@ export default function ChatbotSection() {
       ref={ref}
       style={{
         background: '#06060a',
-        padding: '120px 56px',
+        padding: '140px 0 120px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -74,7 +74,7 @@ export default function ChatbotSection() {
         pointerEvents: 'none',
       }} />
 
-      <div style={{ maxWidth: '1140px', margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: '1140px', margin: '0 auto', padding: '0 56px', position: 'relative' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',

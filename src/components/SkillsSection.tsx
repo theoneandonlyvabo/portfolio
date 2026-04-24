@@ -100,7 +100,7 @@ function getAnimParams(id: string) {
       ref={sectionRef}
       style={{
         background: '#000000',
-        padding: '0px 56px',
+        padding: '140px 0 120px',
         position: 'relative',
         overflow: 'hidden',
         minHeight: '80vh',
@@ -140,9 +140,9 @@ function getAnimParams(id: string) {
         `}
       </style>
 
-      <div style={{ maxWidth: '1140px', margin: '0 auto', position: 'relative' }}>
+      <div style={{ maxWidth: '1140px', margin: '0 auto', padding: '0 56px', position: 'relative' }}>
         
-        <div style={{ marginBottom: '70px', textAlign: 'center' }}>
+        <div style={{ marginBottom: '72px', textAlign: 'center' }}>
           <div style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '10px',
@@ -185,7 +185,7 @@ function getAnimParams(id: string) {
             gap: '24px',
             maxWidth: '950px',
             margin: '0 auto',
-            paddingBottom: '100px',
+            margin: '0 auto',
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
             transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',

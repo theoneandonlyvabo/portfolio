@@ -37,7 +37,7 @@ export default function ProjectsSection() {
       ref={ref}
       style={{
         background: '#000000',
-        padding: '140px 56px 120px',
+        padding: '140px 0 120px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -81,10 +81,10 @@ export default function ProjectsSection() {
           : 'radial-gradient(ellipse at center, rgba(64,96,208,0.04) 0%, transparent 55%)',
       }} />
 
-      <div style={{ maxWidth: '1140px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: '1140px', margin: '0 auto', padding: '0 56px', position: 'relative', zIndex: 1 }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '70px' }}>
+        <div style={{ marginBottom: '72px' }}>
           <div style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '10px',
