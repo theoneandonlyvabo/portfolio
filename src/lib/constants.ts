@@ -19,9 +19,9 @@ export const PROJECTS: Project[] = [
       "Solving real SME problems with full-stack execution. From discovery and architecture to deployment and business impact.",
     tags: ["SaaS", "SCM", "Business Intelligence"],
     techStack: [
-      { name: "Next.js", icon: "/icons/nextjs.png", alt: "Frontend Framework" },
-      { name: "Go", icon: "/icons/go.png", alt: "Backend Framework" },
-      { name: "PostgreSQL", icon: "/icons/postgresql.png", alt: "Database" },
+      { name: "Next.js 16.2", icon: "/icons/nextjs.png", alt: "Frontend Framework" },
+      { name: "Go 1.26.2", icon: "/icons/go.png", alt: "Backend Framework" },
+      { name: "PostgreSQL 18.3", icon: "/icons/postgresql.png", alt: "Database" },
       { name: "Midtrans", icon: "/icons/midtrans.png", alt: "Payment Gateway" },
       { name: "JWT", icon: "/icons/jwt.png", alt: "Authentication" },
       { name: "Biznet GioCloud", icon: "/icons/biznetgiocloud.png", alt: "Cloud Provider" }
@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
       "Built without a game engine to fully control systems, performance, and architecture from scratch.",
     tags: ["Indie Game Development", "Engine", "Architecture"],
     techStack: [
-      { name: "Java", icon: "/icons/java.png" },
+      { name: "Java 26", icon: "/icons/java.png", alt: "Programming Language" },
     ],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/project-eternal" },
@@ -66,9 +66,9 @@ export const PROJECTS: Project[] = [
       "Built to eliminate context switching and explore backend/system design using Go.",
     tags: ["CLI", "TUI", "Dev Tool"],
     techStack: [
-      { name: "Go", icon: "/icons/golang.png" },
-      { name: "Bubble Tea", icon: "/icons/bubbletea.png" },
-      { name: "Cobra", icon: "/icons/cobra.png" }
+      { name: "Go 1.26.2", icon: "/icons/golang.png", alt: "Programming Language" },
+      { name: "Bubble Tea v2", icon: "/icons/bubbletea.png", alt: "TUI Framework" },
+      { name: "Cobra v1.9", icon: "/icons/cobra.png", alt: "CLI Framework" }
     ],
     links: [
       { label: "GitHub", url: "https://github.com/theoneandonlyvabo/grimoire" },
