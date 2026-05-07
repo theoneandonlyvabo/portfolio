@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
       { name: "Next.js 16.2", icon: "/icons/nextjs.png", alt: "Frontend Framework" },
       { name: "Go 1.26.2", icon: "/icons/golang.png", alt: "Backend Framework" },
       { name: "PostgreSQL 18.3", icon: "/icons/postgresql.png", alt: "Database" },
-      { name: "Midtrans", icon: "/icons/midtrans.png", alt: "Payment Gateway" },
+      { name: "Xendit", icon: "/icons/xendit.png", alt: "Payment Gateway" },
       { name: "JWT", icon: "/icons/jwt.png", alt: "Authentication" },
       { name: "Biznet GioCloud", icon: "/icons/biznetgiocloud.png", alt: "Cloud Provider" }
     ],
