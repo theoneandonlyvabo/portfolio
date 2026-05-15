@@ -1,40 +1,41 @@
-# ⌬ **theoneandonlyvabo**
+# ⌬ theoneandonlyvabo
 
-Name’s **Vano**, a developer running mostly in the **web space**, but not tied to just one lane.
+Hi, I'm **Vano** — a developer who lives in the web space but doesn't stay in one lane.
 
-I primarily work formally with **JavaScript / TypeScript (Next.js, React, Node.js, Express) alongside Laravel**, as well as **Java and Go** to build efficient and scalable systems.
+I work formally with **TypeScript / JavaScript** (Next.js, React, Node.js, Express), **Laravel**, **Java**, and **Go** — building systems that are clean, efficient, and meant to scale.
 
-Right now, I’m on the grind building **personal and freelance projects**, sharpening my system thinking, and exploring different domains to push my limits.
-
----
-
-## 🔎 What I'm Doing
-
-* Building **web applications (frontend & backend)**
-* Exploring **scalable backend systems**
-* Experimenting with **game development, machine learning, and data**
-* Working on **freelance & personal projects**
+Right now I'm deep in personal and freelance projects, sharpening system thinking, and crossing into different domains to see what holds up.
 
 ---
 
-## 📫 Get In Touch
+## 🔎 What I'm Working On
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge\&logo=linkedin)](https://linkedin.com/in/aireladrivano)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge\&logo=instagram\&logoColor=white)](https://instagram.com/aireladrivano)
+- Building **full-stack web applications** from architecture to deployment
+- Exploring **scalable backend systems** and distributed service design
+- Experimenting across **game development, machine learning, and data**
+- Taking on **freelance & personal projects** that push the boundary of what I know
+
+---
+
+## 🌐 Find Me
+
+[![Website](https://img.shields.io/badge/Website-adrivano.vercel.app-black?style=for-the-badge&logo=vercel)](https://adrivano.vercel.app)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/aireladrivano)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/aireladrivano)
 
 ---
 
 ## 🛠️ Tech Stack
+
 <img src="https://skillicons.dev/icons?i=java,go,js,ts,php,next,laravel,mysql,postgres,mongodb,git,github" />
 
 ---
 
-## ⚡ Notes
+## ⚡ A Note
 
-Still in an **exploration phase** building, breaking, and leveling up across different fields.
+Still exploring — building, breaking, and leveling up across different fields.
 
 Open for:
-
-* freelance work
-* collaboration
-* building something that actually matters ⚡
+- Freelance work
+- Collaboration
+- Building something that actually matters
