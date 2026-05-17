@@ -1,14 +1,29 @@
-# ⌬ theoneandonlyvabo — Airel Adrivano
+# ⌬ theoneandonlyvabo — Airel Adrivano (Vano)
 
-Founder & developer. Co-founded **[Skalar Solutions](https://skalar.id)** — building **QIOS**, a business intelligence SaaS for Indonesian SMEs. I lead product and backend: Go, PostgreSQL, Xendit, Next.js.
+Founder & developer. Co-founded **Skalar Solutions** — building **QIOS**, a business intelligence SaaS for Indonesian SMEs.
+I lead product vision and backend: architecture, payments, data. Hands-on from day one.
 
-Outside work: solo Java RPG, Go TUI tools, and whatever I find worth breaking.
+Outside work: solo Java RPG, Go TUI tools, and whatever I find worth breaking into.
+
+---
+
+## Stack
+
+<img src="https://skillicons.dev/icons?i=java,go,js,ts,php,next,laravel,postgres,mysql,mongodb,docker,git,github" />
 
 ---
 
-<img src="https://skillicons.dev/icons?i=go,ts,java,next,postgres,docker,git,github" />
+## Projects
+
+| | |
+|---|---|
+| **QIOS** | Business intelligence SaaS — Go, Next.js, PostgreSQL, Xendit |
+| **EternaFall** | Solo Java RPG, no engine, built from scratch |
+| **Grimoire** | Developer note tool — Go, Bubbletea |
 
 ---
+
+## Find Me
 
 [![Website](https://img.shields.io/badge/Website-aireladrivano.vercel.app-black?style=for-the-badge&logo=vercel)](https://aireladrivano.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/aireladrivano)
@@ -16,4 +31,4 @@ Outside work: solo Java RPG, Go TUI tools, and whatever I find worth breaking.
 
 ---
 
-Open for freelance, collaboration, or building something that matters.
+Open for freelance, collabs, or building something that actually matters.
