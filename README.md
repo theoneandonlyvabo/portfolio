@@ -1,23 +1,14 @@
-# ⌬ theoneandonlyvabo
+# ⌬ theoneandonlyvabo — Airel Adrivano
 
-Hi, I'm **Vano** — a developer who lives in the web space but doesn't stay in one lane.
+Founder & developer. Co-founded **[Skalar Solutions](https://skalar.id)** — building **QIOS**, a business intelligence SaaS for Indonesian SMEs. I lead product and backend: Go, PostgreSQL, Xendit, Next.js.
 
-I work formally with **TypeScript / JavaScript** (Next.js, React, Node.js, Express), **Laravel**, **Java**, and **Go** — building systems that are clean, efficient, and meant to scale.
-
-Right now I'm deep in personal and freelance projects, sharpening system thinking, and crossing into different domains to see what holds up.
+Outside work: solo Java RPG, Go TUI tools, and whatever I find worth breaking.
 
 ---
 
-## 🔎 What I'm Working On
-
-- Building **full-stack web applications** from architecture to deployment
-- Exploring **scalable backend systems** and distributed service design
-- Experimenting across **game development, machine learning, and data**
-- Taking on **freelance & personal projects** that push the boundary of what I know
+<img src="https://skillicons.dev/icons?i=go,ts,java,next,postgres,docker,git,github" />
 
 ---
-
-## 🌐 Find Me
 
 [![Website](https://img.shields.io/badge/Website-aireladrivano.vercel.app-black?style=for-the-badge&logo=vercel)](https://aireladrivano.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/aireladrivano)
@@ -25,17 +16,4 @@ Right now I'm deep in personal and freelance projects, sharpening system thinkin
 
 ---
 
-## 🛠️ Tech Stack
-
-<img src="https://skillicons.dev/icons?i=java,go,js,ts,php,next,laravel,mysql,postgres,mongodb,git,github" />
-
----
-
-## ⚡ A Note
-
-Still exploring — building, breaking, and leveling up across different fields.
-
-Open for:
-- Freelance work
-- Collaboration
-- Building something that actually matters
+Open for freelance, collaboration, or building something that matters.
