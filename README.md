@@ -28,7 +28,7 @@ Currently co-founding **Skalar Solutions** and leading development on **QIOS** �
 
 ## 🛠️ Tech Stack
 
-<img src="https://skillicons.dev/icons?i=go,ts,java,next,laravel,postgres,mysql,python,docker,github" />
+<img src="https://skillicons.dev/icons?i=go,ts,java,python,next,laravel,postgres,mysql,docker,github" />
 
 ---
 
